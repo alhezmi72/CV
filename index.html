@@ -1,1616 +1,3045 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr. Adel Al-Hezmi – Enterprise Architect</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #07090f;
-    --surface: #0e1118;
-    --surface2: #131720;
-    --surface3: #1a2030;
-    --accent: #c5a87a;
-    --accent2: #7aa8c5;
-    --accent3: #a87ac5;
-    --text: #e8e4dc;
-    --text2: #9a9590;
-    --text3: #5c5852;
-    --border: rgba(197,168,122,0.15);
-    --border2: rgba(255,255,255,0.06);
-    --glow: rgba(197,168,122,0.08);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Adel Al-Hezmi – Enterprise Architect</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090f;
+      --surface: #0e1118;
+      --surface2: #131720;
+      --surface3: #1a2030;
+      --accent: #c5a87a;
+      --accent2: #7aa8c5;
+      --accent3: #a87ac5;
+      --text: #e8e4dc;
+      --text2: #9a9590;
+      --text3: #5c5852;
+      --border: rgba(197, 168, 122, 0.15);
+      --border2: rgba(255, 255, 255, 0.06);
+      --glow: rgba(197, 168, 122, 0.08);
+    }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-  /* ── CANVAS BG ── */
-  #bg-canvas {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 0;
-    opacity: 0.4;
-  }
+    /* ── CANVAS BG ── */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(7,9,15,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border2);
-    transition: padding 0.3s;
-  }
-  nav.scrolled { padding: 0.8rem 3rem; }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(7, 9, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border2);
+      transition: padding 0.3s;
+    }
 
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: 1.3rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-    text-decoration: none;
-  }
+    nav.scrolled {
+      padding: 0.8rem 3rem;
+    }
 
-  .nav-links {
-    display: flex; gap: 2.5rem; list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text2);
-    text-decoration: none;
-    transition: color 0.3s;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: -4px; left: 0; right: 0;
-    height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
 
-  /* ── SECTIONS ── */
-  section { position: relative; z-index: 1; }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 3rem;
-  }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text2);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 8rem 3rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
 
-  .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
 
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
 
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.3s forwards;
-  }
-  .hero-name strong { color: var(--accent); font-weight: 600; }
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
 
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--text2);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
 
-  .hero-desc {
-    font-size: 0.95rem;
-    color: var(--text2);
-    line-height: 1.9;
-    max-width: 520px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.5s forwards;
-  }
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-  .hero-cta {
-    margin-top: 2.5rem;
-    display: flex; gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-  }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
 
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.75rem 1.8rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.3s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: var(--bg);
-  }
-  .btn-primary:hover {
-    background: #d4b88a;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(197,168,122,0.3);
-  }
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-outline:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-  }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
 
-  /* Hero stats panel */
-  .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.7s forwards;
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 4px;
-    padding: 1.8rem 1.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .stat-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .stat-card:hover { border-color: var(--border); transform: translateY(-3px); }
-  .stat-card:hover::before { opacity: 1; }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-  .stat-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text3);
-  }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
 
-  /* ── SECTION HEADERS ── */
-  .section-header {
-    display: flex; align-items: center; gap: 1.5rem;
-    margin-bottom: 3.5rem;
-  }
-  .section-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    white-space: nowrap;
-  }
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--border), transparent);
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-  }
-  .section-title strong { color: var(--accent); font-weight: 600; }
+    .hero-name strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
 
-  /* ── ABOUT ── */
-  #about {
-    padding: 7rem 0;
-    background: var(--surface);
-  }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--text2);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
 
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--text2);
+      line-height: 1.9;
+      max-width: 520px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
 
-  .about-text p {
-    color: var(--text2);
-    font-size: 0.95rem;
-    line-height: 1.9;
-    margin-bottom: 1.2rem;
-  }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
 
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.2rem;
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 4px;
-    transition: border-color 0.3s;
-  }
-  .contact-item:hover { border-color: var(--border); }
-  .contact-icon {
-    width: 36px; height: 36px;
-    background: var(--glow);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent);
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-  .contact-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text3);
-    margin-bottom: 0.15rem;
-  }
-  .contact-val {
-    font-size: 0.85rem;
-    color: var(--text);
-  }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
 
-  /* ── EXPERIENCE ── */
-  #experience { padding: 7rem 0; }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
 
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0.6rem; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, var(--accent), transparent);
-  }
+    .btn-primary:hover {
+      background: #d4b88a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(197, 168, 122, 0.3);
+    }
 
-  .timeline-item {
-    position: relative;
-    margin-bottom: 3.5rem;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .timeline-item.visible {
-    opacity: 1;
-    transform: none;
-  }
-  .timeline-dot {
-    position: absolute;
-    left: -2.4rem; top: 0.35rem;
-    width: 10px; height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent);
-  }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
 
-  .tl-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.6rem;
-  }
-  .tl-role {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .tl-period {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--accent);
-    background: rgba(197,168,122,0.1);
-    padding: 0.3rem 0.7rem;
-    border-radius: 2px;
-    white-space: nowrap;
-    border: 1px solid var(--border);
-  }
-  .tl-company {
-    font-size: 0.85rem;
-    color: var(--accent2);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .tl-sep { color: var(--text3); }
-  .tl-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-  .tl-bullets li {
-    font-size: 0.87rem;
-    color: var(--text2);
-    padding-left: 1.2rem;
-    position: relative;
-  }
-  .tl-bullets li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 600;
-  }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
 
-  /* ── SKILLS ── */
-  #skills {
-    padding: 7rem 0;
-    background: var(--surface);
-  }
+    /* Hero stats panel */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
 
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 1.8rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
 
-  .skill-group {
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 4px;
-    padding: 1.8rem;
-    transition: border-color 0.3s, transform 0.3s;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
-  }
-  .skill-group.visible { opacity: 1; transform: none; }
-  .skill-group:hover { border-color: var(--border); transform: translateY(-4px) !important; }
-  .skill-group-title {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border2);
-  }
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .tag {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.7rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border2);
-    border-radius: 2px;
-    color: var(--text2);
-    transition: all 0.2s;
-  }
-  .tag:hover { background: var(--glow); border-color: var(--border); color: var(--text); }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
 
-  /* ── PROJECTS ── */
-  #projects { padding: 7rem 0; }
+    .stat-card:hover {
+      border-color: var(--border);
+      transform: translateY(-3px);
+    }
 
-  .projects-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-bottom: 3rem;
-  }
-  .filter-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.45rem 1rem;
-    background: transparent;
-    border: 1px solid var(--border2);
-    color: var(--text2);
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-  }
+    .stat-card:hover::before {
+      opacity: 1;
+    }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 1.5rem;
-  }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
 
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 4px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  .project-card.visible { opacity: 1; transform: none; }
-  .project-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--glow), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .project-card:hover { border-color: var(--border); transform: translateY(-4px); }
-  .project-card:hover::after { opacity: 1; }
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text3);
+    }
 
-  .project-domain {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 0.8rem;
-  }
-  .project-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-  .project-role {
-    font-size: 0.75rem;
-    color: var(--accent);
-    margin-bottom: 1.2rem;
-  }
-  .project-desc {
-    font-size: 0.84rem;
-    color: var(--text2);
-    line-height: 1.75;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 1.2rem;
-  }
-  .project-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.8rem;
-  }
-  .project-period {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--text3);
-  }
-  .project-tech-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-  .project-tech {
-    font-size: 0.65rem;
-    padding: 0.2rem 0.5rem;
-    background: rgba(122,168,197,0.1);
-    border: 1px solid rgba(122,168,197,0.2);
-    border-radius: 2px;
-    color: var(--accent2);
-  }
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
 
-  /* ── MODAL ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(7,9,15,0.9);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    padding: 2rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-  .modal-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    max-width: 700px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 2.5rem;
-    position: relative;
-    transform: translateY(20px) scale(0.97);
-    transition: transform 0.3s;
-  }
-  .modal-overlay.open .modal { transform: none; }
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
 
-  .modal-close {
-    position: absolute;
-    top: 1.2rem; right: 1.2rem;
-    width: 34px; height: 34px;
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 3px;
-    color: var(--text2);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    transition: all 0.2s;
-  }
-  .modal-close:hover { color: var(--text); border-color: var(--border); }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
 
-  .modal-domain {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 0.6rem;
-  }
-  .modal-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.9rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-    line-height: 1.2;
-  }
-  .modal-meta {
-    display: flex; gap: 1.5rem; align-items: center;
-    margin-bottom: 1.8rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border2);
-    flex-wrap: wrap;
-  }
-  .modal-meta-item {
-    font-size: 0.78rem;
-    color: var(--text2);
-    display: flex; align-items: center; gap: 0.4rem;
-  }
-  .modal-meta-item span { color: var(--accent); }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
 
-  .modal-section-title {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 1.5rem 0 0.8rem;
-  }
-  .modal-list {
-    list-style: none;
-    display: flex; flex-direction: column; gap: 0.5rem;
-  }
-  .modal-list li {
-    font-size: 0.87rem;
-    color: var(--text2);
-    padding-left: 1.2rem;
-    position: relative;
-    line-height: 1.65;
-  }
-  .modal-list li::before {
-    content: '›';
-    position: absolute;
-    left: 0; color: var(--accent);
-    font-weight: 600;
-  }
+    .section-title strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
 
-  .modal-env-tags, .modal-tech-tags {
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
-  }
-  .env-tag {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.8rem;
-    background: rgba(168,122,197,0.1);
-    border: 1px solid rgba(168,122,197,0.2);
-    border-radius: 2px;
-    color: var(--accent3);
-  }
-  .tech-tag {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.8rem;
-    background: rgba(122,168,197,0.1);
-    border: 1px solid rgba(122,168,197,0.2);
-    border-radius: 2px;
-    color: var(--accent2);
-  }
+    /* ── ABOUT ── */
+    #about {
+      padding: 7rem 0;
+      background: var(--surface);
+    }
 
-  .modal-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 0.82rem;
-    border-bottom: 1px solid rgba(197,168,122,0.3);
-    padding-bottom: 0.1rem;
-    margin-top: 1.2rem;
-    transition: border-color 0.2s;
-  }
-  .modal-link:hover { border-color: var(--accent); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
 
-  /* ── EDUCATION ── */
-  #education {
-    padding: 7rem 0;
-    background: var(--surface);
-  }
-  .edu-card {
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 4px;
-    padding: 2rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-  }
-  .edu-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--accent), var(--accent2));
-  }
-  .edu-degree {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-  }
-  .edu-inst {
-    font-size: 0.85rem;
-    color: var(--accent2);
-    margin-bottom: 0.5rem;
-  }
-  .edu-desc { font-size: 0.85rem; color: var(--text2); }
-  .edu-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    margin-top: 0.8rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(197,168,122,0.1);
-    border: 1px solid var(--border);
-    padding: 0.25rem 0.7rem;
-    border-radius: 2px;
-  }
+    .about-text p {
+      color: var(--text2);
+      font-size: 0.95rem;
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
 
-  /* ── FOOTER ── */
-  footer {
-    padding: 3rem;
-    border-top: 1px solid var(--border2);
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-  footer p {
-    font-size: 0.78rem;
-    color: var(--text3);
-    letter-spacing: 0.05em;
-  }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: none; }
-  }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
 
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+    .contact-item:hover {
+      border-color: var(--border);
+    }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-stats { grid-template-columns: 1fr 1fr; }
-    .about-grid { grid-template-columns: 1fr; }
-    .container { padding: 0 1.5rem; }
-    #hero { padding: 7rem 1.5rem 4rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-  }
-</style>
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--glow);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text3);
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-val {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      padding: 7rem 0;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.4rem;
+      top: 0.35rem;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .tl-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .tl-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .tl-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: rgba(197, 168, 122, 0.1);
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+    }
+
+    .tl-company {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tl-sep {
+      color: var(--text3);
+    }
+
+    .tl-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .tl-bullets li {
+      font-size: 0.87rem;
+      color: var(--text2);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .tl-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      padding: 7rem 0;
+      background: var(--surface);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 1.8rem;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+    }
+
+    .skill-group.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .skill-group:hover {
+      border-color: var(--border);
+      transform: translateY(-4px) !important;
+    }
+
+    .skill-group-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border2);
+      border-radius: 2px;
+      color: var(--text2);
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      background: var(--glow);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      padding: 7rem 0;
+    }
+
+    .projects-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--text2);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--glow), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+    }
+
+    .project-card:hover::after {
+      opacity: 1;
+    }
+
+    .project-domain {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .project-role {
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .project-desc {
+      font-size: 0.84rem;
+      color: var(--text2);
+      line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .project-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text3);
+    }
+
+    .project-tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .project-tech {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(122, 168, 197, 0.1);
+      border: 1px solid rgba(122, 168, 197, 0.2);
+      border-radius: 2px;
+      color: var(--accent2);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 15, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s;
+    }
+
+    .modal-overlay.open .modal {
+      transform: none;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      width: 34px;
+      height: 34px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 3px;
+      color: var(--text2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .modal-domain {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.6rem;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .modal-meta {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border2);
+      flex-wrap: wrap;
+    }
+
+    .modal-meta-item {
+      font-size: 0.78rem;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .modal-meta-item span {
+      color: var(--accent);
+    }
+
+    .modal-section-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 1.5rem 0 0.8rem;
+    }
+
+    .modal-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .modal-list li {
+      font-size: 0.87rem;
+      color: var(--text2);
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.65;
+    }
+
+    .modal-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .modal-env-tags,
+    .modal-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .env-tag {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(168, 122, 197, 0.1);
+      border: 1px solid rgba(168, 122, 197, 0.2);
+      border-radius: 2px;
+      color: var(--accent3);
+    }
+
+    .tech-tag {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(122, 168, 197, 0.1);
+      border: 1px solid rgba(122, 168, 197, 0.2);
+      border-radius: 2px;
+      color: var(--accent2);
+    }
+
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.82rem;
+      border-bottom: 1px solid rgba(197, 168, 122, 0.3);
+      padding-bottom: 0.1rem;
+      margin-top: 1.2rem;
+      transition: border-color 0.2s;
+    }
+
+    .modal-link:hover {
+      border-color: var(--accent);
+    }
+
+    /* ── EDUCATION ── */
+    #education {
+      padding: 7rem 0;
+      background: var(--surface);
+    }
+
+    .edu-card {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+    }
+
+    .edu-degree {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .edu-inst {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+    }
+
+    .edu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.8rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(197, 168, 122, 0.1);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.7rem;
+      border-radius: 2px;
+    }
+
+    /* ── WORKSHOPS ── */
+    #workshops {
+      padding: 7rem 0;
+      background: var(--surface);
+    }
+
+    /* ── PUBLICATIONS ── */
+    #publications {
+      padding: 7rem 0;
+      background: var(--bg);
+    }
+
+    .ws-type-filter {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .ws-filter {
+      background: none;
+      border: 1px solid var(--border2);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text3);
+      cursor: pointer;
+      padding: 0.45rem 1.1rem;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .ws-filter:hover {
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .ws-filter.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .pub-stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .pub-stat {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 1rem 1.8rem;
+      text-align: center;
+    }
+
+    .pub-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .pub-stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-top: 0.3rem;
+    }
+
+    .workshop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .workshop-item {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0 1.2rem;
+      align-items: start;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .workshop-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s;
+    }
+
+    .workshop-item:hover {
+      border-color: var(--border);
+      transform: translateX(3px);
+    }
+
+    .workshop-item:hover::before {
+      transform: scaleY(1);
+    }
+
+    .workshop-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      padding-top: 0.15rem;
+    }
+
+    .workshop-venue {
+      font-size: 0.68rem;
+      color: var(--text3);
+      margin-top: 0.2rem;
+    }
+
+    .workshop-type {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.45rem;
+      border-radius: 2px;
+      margin-bottom: 0.35rem;
+    }
+
+    .type-workshop {
+      background: rgba(197, 168, 122, 0.12);
+      color: var(--accent);
+    }
+
+    .type-tutorial {
+      background: rgba(122, 168, 197, 0.12);
+      color: var(--accent2);
+    }
+
+    .type-panel {
+      background: rgba(168, 122, 197, 0.12);
+      color: var(--accent3);
+    }
+
+    .type-talk {
+      background: rgba(100, 197, 180, 0.12);
+      color: #64c5b4;
+    }
+
+    .workshop-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+    }
+
+    .workshop-meta {
+      font-size: 0.78rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .workshop-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      color: var(--accent2);
+      text-decoration: none;
+      margin-top: 0.35rem;
+      border-bottom: 1px solid rgba(122, 168, 197, 0.3);
+      padding-bottom: 0.05rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .workshop-link:hover {
+      color: var(--accent);
+      border-color: var(--border);
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .pub-item {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 1.1rem 1.4rem;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 1rem;
+      align-items: start;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .pub-item:hover {
+      border-color: var(--border);
+      background: var(--surface2);
+    }
+
+    .pub-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text3);
+      padding-top: 0.2rem;
+      text-align: right;
+    }
+
+    .pub-title {
+      font-size: 0.87rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+      line-height: 1.5;
+    }
+
+    .pub-title em {
+      color: var(--accent);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .pub-authors {
+      font-size: 0.76rem;
+      color: var(--text3);
+      margin-bottom: 0.2rem;
+    }
+
+    .pub-venue {
+      font-size: 0.76rem;
+      color: var(--accent2);
+      font-style: italic;
+    }
+
+    .pub-doi {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      color: var(--text3);
+      margin-top: 0.3rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .pub-doi:hover {
+      color: var(--accent2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--border2);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--surface3);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      #hero {
+        padding: 7rem 1.5rem 4rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<canvas id="bg-canvas"></canvas>
+  <canvas id="bg-canvas"></canvas>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">Dr. Adel Al-Hezmi</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#education">Education</a></li>
-  </ul>
-</nav>
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Dr. Adel Al-Hezmi</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#workshops">Workshops</a></li>
+      <li><a href="#publications">Publications</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div>
-      <p class="hero-eyebrow">// Enterprise · Solution · System · Cloud · IoT</p>
-      <h1 class="hero-name">Dr. <strong>Adel</strong><br>Al-Hezmi</h1>
-      <p class="hero-title">Dr.-Ing. | Senior Enterprise & Solution Architect</p>
-      <p class="hero-desc">With over two decades of professional experience, specializing in Software Development, ICT, Cloud Computing and IoT across automotive, telecommunications, smart home, and smart cities domains.</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#experience" class="btn btn-outline">Experience</a>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-card">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">30+</div>
-        <div class="stat-label">Projects Delivered</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">PhD</div>
-        <div class="stat-label">Dr.-Ing. TU Berlin</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">TOGAF</div>
-        <div class="stat-label">Certified Architect</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">01 / About</span>
-      <div class="section-line"></div>
-    </div>
-    <h2 class="section-title">Profile <strong>Overview</strong></h2>
-    <div style="margin-top:2rem;" class="about-grid">
-      <div class="about-text">
-        <p>Dr. Adel Al-Hezmi received his PhD in 2011 and MSc in electrical engineering in 2003 from the Technische Universität Berlin, Germany, with specific emphasis on telecommunication platforms and networks. He has more than twenty years of working experience as a system, solution, and enterprise architect.</p>
-        <p>He has worked within the framework of large-scale projects with international players in different countries by contributing to several architecture domains including business, information, application, technical, integration, security and software architecture. Solutions follow top-down, bottom-up or mixed approaches, always aligned with the client organization strategy across different value streams.</p>
-        <p>The architecture embodies specific agile principles, relies on state-of-the-art technologies, and focuses on customer satisfaction and built-in quality and compliance. In most project activities, Adel has been involved with the client in all project phases ranging from project proposals and pre-sales to RFI/RFP responses and project delivery.</p>
-        <p>Currently working at <strong style="color:var(--accent)">Qatar Mobility Innovations Center (QMIC)</strong> as a Senior Solution Architect and Technology Advisor since May 2022.</p>
-      </div>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
       <div>
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon">✉</div>
-            <div>
-              <div class="contact-label">Email</div>
-              <div class="contact-val">alhezmi@gmail.com</div>
+        <p class="hero-eyebrow">// Enterprise · Solution · System · Cloud · IoT</p>
+        <h1 class="hero-name">Dr. <strong>Adel</strong><br>Al-Hezmi</h1>
+        <p class="hero-title">Dr.-Ing. | Senior Enterprise & Solution Architect</p>
+        <p class="hero-desc">With over two decades of professional experience, specializing in Software Development,
+          ICT, Cloud Computing and IoT across automotive, telecommunications, smart home, and smart cities domains.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#experience" class="btn btn-outline">Experience</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">PhD</div>
+          <div class="stat-label">Dr.-Ing. TU Berlin</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">TOGAF</div>
+          <div class="stat-label">Certified Architect</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">01 / About</span>
+        <div class="section-line"></div>
+      </div>
+      <h2 class="section-title">Profile <strong>Overview</strong></h2>
+      <div style="margin-top:2rem;" class="about-grid">
+        <div class="about-text">
+          <p>Dr. Adel Al-Hezmi received his PhD in 2011 and MSc in electrical engineering in 2003 from the Technische
+            Universität Berlin, Germany, with specific emphasis on telecommunication platforms and networks. He has more
+            than twenty years of working experience as a system, solution, and enterprise architect.</p>
+          <p>He has worked within the framework of large-scale projects with international players in different
+            countries by contributing to several architecture domains including business, information, application,
+            technical, integration, security and software architecture. Solutions follow top-down, bottom-up or mixed
+            approaches, always aligned with the client organization strategy across different value streams.</p>
+          <p>The architecture embodies specific agile principles, relies on state-of-the-art technologies, and focuses
+            on customer satisfaction and built-in quality and compliance. In most project activities, Adel has been
+            involved with the client in all project phases ranging from project proposals and pre-sales to RFI/RFP
+            responses and project delivery.</p>
+          <p>Currently working at <strong style="color:var(--accent)">Qatar Mobility Innovations Center (QMIC)</strong>
+            as a Senior Solution Architect and Technology Advisor since May 2022.</p>
+        </div>
+        <div>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">✉</div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-val">alhezmi@gmail.com</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">☎</div>
+              <div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-val">+974 5085 7036 · +49 162 5765854</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">⌂</div>
+              <div>
+                <div class="contact-label">Location</div>
+                <div class="contact-val">Doha, Qatar · Berlin, Germany</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">⚐</div>
+              <div>
+                <div class="contact-label">Languages</div>
+                <div class="contact-val">Arabic (native) · German · English (fluent)</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">◈</div>
+              <div>
+                <div class="contact-label">Current Role</div>
+                <div class="contact-val">Senior Solution Architect – QMIC</div>
+              </div>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">☎</div>
-            <div>
-              <div class="contact-label">Phone</div>
-              <div class="contact-val">+974 5085 7036 · +49 162 5765854</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">02 / Experience</span>
+        <div class="section-line"></div>
+      </div>
+      <h2 class="section-title">Professional <strong>Journey</strong></h2>
+      <div style="margin-top:2.5rem;" class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Senior Solution Architect</div>
+            <div class="tl-period">May 2022 – Present</div>
+          </div>
+          <div class="tl-company">Qatar Mobility Innovations Center (QMIC) <span class="tl-sep">·</span> Doha</div>
+          <ul class="tl-bullets">
+            <li>Define organizational architecture framework and enforce architecture standards and best practices.</li>
+            <li>Develop solution architecture strategy, processes, tools and technology stack and oversee product
+              development.</li>
+            <li>Assess architecture of all QMIC intelligent mobility and smart city solutions, ensuring cloud-agnostic
+              implementation.</li>
+            <li>Design comprehensive end-to-end architecture incorporating security-by-design and zero-trust model
+              principles.</li>
+            <li>Enhance existing solutions with AI enablers (Generative AI and computer vision) to ensure
+              competitiveness.</li>
+            <li>Provide guidance for migrating from baseline monolith to microservice architecture.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Overall Architect</div>
+            <div class="tl-period">Apr 2020 – May 2022</div>
+          </div>
+          <div class="tl-company">Volkswagen AG / CARIAD <span class="tl-sep">·</span> Wolfsburg</div>
+          <ul class="tl-bullets">
+            <li>Spearheaded the overall architecture of various connected car solutions for all VW brands in different
+              markets.</li>
+            <li>Developed comprehensive end-to-end architecture following TOGAF for webapp, mobile app, backend, cloud
+              platforms, and vehicle integration — resulting in over 60% user enrollment.</li>
+            <li>Managed several architects, fostering collaboration and alignment with key objectives.</li>
+            <li>Defined and documented architecture management activities through patterns, templates, guidance, and
+              decisions using LeanIX and EA Sparx.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Senior IT/IoT Architect</div>
+            <div class="tl-period">Mar 2016 – Jan 2020</div>
+          </div>
+          <div class="tl-company">T-Systems International <span class="tl-sep">·</span> Berlin</div>
+          <ul class="tl-bullets">
+            <li>Developed architectures of various Mobile Online Services for Volkswagen Car-Net following TOGAF and
+              SAFe.</li>
+            <li>Designed identity and access management framework for infotainment services ensuring regulatory
+              compliance.</li>
+            <li>Defined technology architecture of various backend system components in AWS and Azure cloud.</li>
+            <li>Guided development of innovative IoT services for different vertical domains with multidisciplinary
+              teams.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Senior Solution Architect</div>
+            <div class="tl-period">Nov 2012 – Feb 2016</div>
+          </div>
+          <div class="tl-company">Fraunhofer FOKUS <span class="tl-sep">·</span> Berlin</div>
+          <ul class="tl-bullets">
+            <li>Led the OpenMTC team to develop and deliver an IoT platform supporting smart home, smart cities,
+              healthcare, environmental monitoring, smart grids, and Industry 4.0.</li>
+            <li>Accomplished advisory service projects for ICT companies in M2M/IoT service innovation, NFV and SDN.
+            </li>
+            <li>Expanded OpenMTC marketing activities and gained more than 50% customers from new industry segments.
+            </li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Solution Architect</div>
+            <div class="tl-period">Mar 2011 – Oct 2012</div>
+          </div>
+          <div class="tl-company">QMIC <span class="tl-sep">·</span> Doha</div>
+          <ul class="tl-bullets">
+            <li>Contributed to business development and IoT platform for the Intelligent Transportation System domain.
+            </li>
+            <li>Guided and developed domain-oriented multimedia applications over an IMS-based core.</li>
+            <li>Contributed to the definition of QMIC strategic plan and assisted the execution plan.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">IMS Solutions Architect</div>
+            <div class="tl-period">May 2008 – Oct 2010</div>
+          </div>
+          <div class="tl-company">Saudi Telecom Company (STC) <span class="tl-sep">·</span> Riyadh</div>
+          <ul class="tl-bullets">
+            <li>Oversaw multiple network design projects within the NGN migration program.</li>
+            <li>Dimensioned STC NGN/IMS network architectures for delivering converged multimedia services.</li>
+            <li>Prepared technical specifications and tender/procurement (RFI/RFP) documents for IMS.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Senior Solution Architect</div>
+            <div class="tl-period">Jan 2004 – Apr 2008</div>
+          </div>
+          <div class="tl-company">Fraunhofer FOKUS <span class="tl-sep">·</span> Berlin</div>
+          <ul class="tl-bullets">
+            <li>Initiated developments related to IMS-based multimedia solutions and related interactive multimedia
+              services.</li>
+            <li>Led development of an IMS-based multimedia content delivery platform for fixed and wireless
+              infrastructure.</li>
+            <li>Filed two patents in service interaction based on publish/subscription architecture pattern.</li>
+            <li>Contributed to the IMS-based streaming subsystem standard within ETSI NGN architecture.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="tl-header">
+            <div class="tl-role">Developer</div>
+            <div class="tl-period">Dec 1999 – Dec 2003</div>
+          </div>
+          <div class="tl-company">Siemens ICM <span class="tl-sep">·</span> Berlin</div>
+          <ul class="tl-bullets">
+            <li>Designed and implemented interactive multimedia response unit for mobile all-IP networks.</li>
+            <li>Joined the development of testbed setup of the 3GPP IP Multimedia Subsystem (IMS).</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">03 / Skills</span>
+        <div class="section-line"></div>
+      </div>
+      <h2 class="section-title">Technical <strong>Expertise</strong></h2>
+      <div style="margin-top:2.5rem;" class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">EA Tools & Frameworks</div>
+          <div class="skill-tags">
+            <span class="tag">TOGAF</span><span class="tag">SAP LeanIX</span><span class="tag">EA Sparx</span>
+            <span class="tag">Orbus Software</span><span class="tag">ArchiMate</span><span class="tag">UML</span>
+            <span class="tag">BPMN</span><span class="tag">Draw.io</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Software Engineering</div>
+          <div class="skill-tags">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Quarkus</span>
+            <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Vue</span>
+            <span class="tag">Python</span><span class="tag">C/C++</span><span class="tag">REST</span>
+            <span class="tag">OpenAPI</span><span class="tag">Microservices</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Cloud & Infrastructure</div>
+          <div class="skill-tags">
+            <span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">GCP</span>
+            <span class="tag">Kafka</span><span class="tag">Docker</span><span class="tag">Terraform</span>
+            <span class="tag">Keycloak</span><span class="tag">Zero-Trust</span><span class="tag">IoT Platforms</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Protocols & Standards</div>
+          <div class="skill-tags">
+            <span class="tag">MQTT</span><span class="tag">CoAP</span><span class="tag">SIP</span>
+            <span class="tag">HTTP</span><span class="tag">NGN/IMS</span><span class="tag">VoIP</span>
+            <span class="tag">OneM2M</span><span class="tag">OMA NGSI</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Certifications</div>
+          <div class="skill-tags">
+            <span class="tag">TOGAF Certified</span><span class="tag">SAFe® 5 Architect</span>
+            <span class="tag">PMP</span><span class="tag">Scrum Product Owner</span>
+            <span class="tag">Machine Learning</span><span class="tag">Zero-Trust Architecture</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Industry Domains</div>
+          <div class="skill-tags">
+            <span class="tag">Automotive</span><span class="tag">Smart City</span>
+            <span class="tag">HealthCare</span><span class="tag">Industrial IoT</span>
+            <span class="tag">Telecommunication</span><span class="tag">Smart Grid</span>
+            <span class="tag">FinTech</span><span class="tag">eGovernment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">04 / Projects</span>
+        <div class="section-line"></div>
+      </div>
+      <h2 class="section-title">Project <strong>Portfolio</strong></h2>
+      <div style="margin-top:2rem;">
+        <div class="projects-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="Automotive">Automotive</button>
+          <button class="filter-btn" data-filter="Smart City">Smart City</button>
+          <button class="filter-btn" data-filter="IoT">IoT</button>
+          <button class="filter-btn" data-filter="Telecom">Telecom</button>
+          <button class="filter-btn" data-filter="eHealth">eHealth</button>
+          <button class="filter-btn" data-filter="eGov">eGovernment</button>
+          <button class="filter-btn" data-filter="Enterprise">Enterprise Architecture</button>
+          <button class="filter-btn" data-filter="FinTech">FinTech</button>
+        </div>
+        <div class="projects-grid" id="projects-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">05 / Education</span>
+        <div class="section-line"></div>
+      </div>
+      <h2 class="section-title">Academic <strong>Background</strong></h2>
+      <div style="margin-top:2.5rem;">
+        <div class="edu-card">
+          <div class="edu-degree">PhD (Dr.-Ing.) in Telecommunication</div>
+          <div class="edu-inst">Technische Universität Berlin · 2011</div>
+          <div class="edu-desc">"Efficient Session-based Multimedia Content Delivery in Next Generation Networks"</div>
+          <span class="edu-badge">⋆ Excellent Distinction</span>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">Diplom / Master of Electrical Engineering</div>
+          <div class="edu-inst">Technische Universität Berlin · 2003</div>
+          <div class="edu-desc">Telecommunication Engineering and Networks</div>
+          <span class="edu-badge">⋆ Excellent Distinction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSHOPS & TUTORIALS -->
+  <section id="workshops">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">06 / Workshops</span>
+        <div class="section-line"></div>
+      </div>
+      <h2 class="section-title">Workshops &amp; <strong>Tutorials</strong></h2>
+
+      <div class="pub-stats">
+        <div class="pub-stat">
+          <div class="pub-stat-num">33</div>
+          <div class="pub-stat-label">Events</div>
+        </div>
+        <div class="pub-stat">
+          <div class="pub-stat-num">15+</div>
+          <div class="pub-stat-label">Countries</div>
+        </div>
+        <div class="pub-stat">
+          <div class="pub-stat-num">2005–2018</div>
+          <div class="pub-stat-label">Active Period</div>
+        </div>
+      </div>
+
+      <div class="ws-type-filter">
+        <button class="ws-filter active" data-wtype="all">All</button>
+        <button class="ws-filter" data-wtype="Workshop">Workshop</button>
+        <button class="ws-filter" data-wtype="Tutorial">Tutorial</button>
+        <button class="ws-filter" data-wtype="Panel">Panel</button>
+        <button class="ws-filter" data-wtype="Talk">Talk</button>
+      </div>
+
+      <div class="workshop-list" id="workshop-list">
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2018</div>
+            <div class="workshop-venue">Tunis, Tunisia</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">IoT Architectural Challenges</div>
+            <div class="workshop-meta">Annual IoT Tunisia Forum · 26 April 2018</div>
+            <a href="http://www.iotunisia.com/" target="_blank" rel="noopener" class="workshop-link">↗ iotunisia.com</a>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2018</div>
+            <div class="workshop-venue">Tunis, Tunisia</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">IoT Platform Strategy – Paying by Doing vs. Partnership</div>
+            <div class="workshop-meta">Annual IoT Tunisia Forum · 27 April 2018</div>
+            <a href="http://www.iotunisia.com/" target="_blank" rel="noopener" class="workshop-link">↗ iotunisia.com</a>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">IoT, M2M, Data and Cyber-physical Systems for Industrie 4.0 / Industrial
+              Internet and Smart Cities</div>
+            <div class="workshop-meta">6th FUSECO Forum, Fraunhofer FOKUS · Nov 5–6, 2015 · with Dr. Florian Schreiner
+            </div>
+            <a href="http://www.fuseco-forum.org" target="_blank" rel="noopener" class="workshop-link">↗
+              fuseco-forum.org</a>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">The Evolution of IoT/M2M Platforms and Services for Various Vertical Domains
+            </div>
+            <div class="workshop-meta">6th FUSECO Forum, Fraunhofer FOKUS (organized &amp; chaired) · Nov 5–6, 2015
+            </div>
+            <a href="http://www.fuseco-forum.org" target="_blank" rel="noopener" class="workshop-link">↗
+              fuseco-forum.org</a>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Panel">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-panel">Panel</span>
+            <div class="workshop-title">Optimising Networks for IoT &amp; Key Trends in Industrial Automation</div>
+            <div class="workshop-meta">IoT World Europe · Oct 5–7, 2015 · Panelist in two sessions</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Marseille, France</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">Pave the Way for Enabling Open M2M Service Platform</div>
+            <div class="workshop-meta">M2M Innovation World · Sep 15–17, 2015</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Düsseldorf, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">Enabling Reliable Communication for Emerging M2M/IoT Applications</div>
+            <div class="workshop-meta">M2M Summit · Sep 8–9, 2015</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">The Open Platforms as Key Enabler for Developing IoT Applications</div>
+            <div class="workshop-meta">IoT &amp; WSN Applications Europe Conference · Apr 28–29, 2015</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2015</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Sichere Identitäten im Internet der Dinge – Smart Home und Wearables</div>
+            <div class="workshop-meta">OmniCARD Workshop · Jan 20–22, 2015</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2014</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">Uniform IoT/M2M Service Development in Smart Cities</div>
+            <div class="workshop-meta">5th FUSECO Forum · November 2014 · with Konrad Campowsky</div>
+            <a href="http://www.fuseco-forum.org" target="_blank" rel="noopener" class="workshop-link">↗
+              fuseco-forum.org</a>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2014</div>
+            <div class="workshop-venue">Seoul, South Korea</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">From M2M towards IoT for Enabling Smart Cities</div>
+            <div class="workshop-meta">IoT Week Korea · Nov 5–7, 2014</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2014</div>
+            <div class="workshop-venue">Marseille, France</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">OpenMTC Platform – Enabler for M2M Development and Service Delivery</div>
+            <div class="workshop-meta">M2M Innovation World Congress · Sep 22–24, 2014</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2014</div>
+            <div class="workshop-venue">London, UK</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">Convergence of M2M and H2H Service Control Platforms within Emerging Smart
+              Cities</div>
+            <div class="workshop-meta">Service Delivery Innovation Summit · Sep 16–17, 2014</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2014</div>
+            <div class="workshop-venue">London, UK</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">Bringing Clouds, SDN and NFV Together</div>
+            <div class="workshop-meta">Service Delivery Innovation Summit · Sep 16–17, 2014</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2013</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">M2M Communication Evolution: Motivation, Standards, Applications and Tools for
+              IoT</div>
+            <div class="workshop-meta">4th FUSECO Forum · Nov 28–29, 2013</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2013</div>
+            <div class="workshop-venue">Düsseldorf, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">M2M Solution Testing and Prototyping in Face of Emerging Global M2M Standards
+            </div>
+            <div class="workshop-meta">M2M Summit · September 2013</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Talk">
+          <div>
+            <div class="workshop-year">2011</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-talk">Talk</span>
+            <div class="workshop-title">Establishment of Open Innovation Testbeds – Mobile Broadband Service Case
+              Studies in Europe/EMEA</div>
+            <div class="workshop-meta">FUSECO Forum 2011, Fraunhofer FOKUS · Nov 17–18, 2011 · with A. Abu Dai</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Panel">
+          <div>
+            <div class="workshop-year">2011</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-panel">Panel</span>
+            <div class="workshop-title">Broadband Broadcast Convergence</div>
+            <div class="workshop-meta">FOKUS Media Web Symposium 2011 · Nov 10–11, 2011</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Panel">
+          <div>
+            <div class="workshop-year">2009</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-panel">Panel</span>
+            <div class="workshop-title">Operator Panel of IPTV &amp; Media Convergence</div>
+            <div class="workshop-meta">5th International FOKUS IMS Workshop · Nov 11–12, 2009</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2008</div>
+            <div class="workshop-venue">Cologne, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Towards IPTV Value Added Services – IMS as Enabler for Interactive IPTV 2.0
+            </div>
+            <div class="workshop-meta">Euroforum 14. Jahrestagung "Die Zukunft der Kabel-TV-Netze" · Feb 26–27, 2008 ·
+              with T. Magedanz</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Panel">
+          <div>
+            <div class="workshop-year">2008</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-panel">Panel</span>
+            <div class="workshop-title">Operator Panel – 4th International FOKUS IMS Workshop</div>
+            <div class="workshop-meta">4th FOKUS IMS Workshop · Nov 6–7, 2008</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2007</div>
+            <div class="workshop-venue">Bled, Slovenia</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">From FMC to Quadruple Play</div>
+            <div class="workshop-meta">Symposium Next Generation Multimedia · May 14–15, 2007</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2007</div>
+            <div class="workshop-venue">Athens, Greece</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">IMS for Triple Play and IPTV – Understanding the Role of IMS as NGN Platform
+            </div>
+            <div class="workshop-meta">PIMRC 2007 · Sep 3–7, 2007 · with T. Magedanz</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2007</div>
+            <div class="workshop-venue">Athens, Greece</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Enabling IP-based Mobile Services with Multicast and Broadcast Capabilities
+            </div>
+            <div class="workshop-meta">PIMRC 2007 · Sep 3–7, 2007</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2007</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Media Interoperability Lab: IMS-based IPTV – Technical Insights</div>
+            <div class="workshop-meta">3rd FOKUS IMS Workshop · Nov 15–16, 2007 · with Oliver Friedrich</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">London, UK</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Impacts of SOA on the Strategy for Building NGN Multimedia Applications</div>
+            <div class="workshop-meta">IQCP SOA Forum · May 2006 · with T. Magedanz, F. Schreiner</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">Silicon Valley, USA</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">Overview of the IP Multimedia System (IMS) – Principles, Architecture and
+              Applications</div>
+            <div class="workshop-meta">ICNS 2006 · Jul 16–19, 2006 · with T. Magedanz</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">Cologne, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">SOA-based Service Creation in Next Generation Networks</div>
+            <div class="workshop-meta">IQPC 3. SOA Jahresforum · Aug 28, 2006 · with T. Magedanz</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">Malaga, Spain</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">The 3GPP IMS as Service Platform for NGN Wireless Multimedia Applications
+              (MSWiM)</div>
+            <div class="workshop-meta">ACM/IEEE MSWiM 2006 · Oct 2, 2006 · with T. Magedanz</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">Amsterdam, Netherlands</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Towards Seamless Triple Play Services – IMS and the Access Network</div>
+            <div class="workshop-meta">Evolving Telecom Access Networks &amp; Services Forum · Nov 6–8, 2006</div>
+          </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Tutorial">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">Hong Kong</div>
+          </div>
+          <div>
+            <span class="workshop-type type-tutorial">Tutorial</span>
+            <div class="workshop-title">IMS and NGN Fundamentals for Next Generation Service Providers and Fixed-Mobile
+              Convergence</div>
+            <div class="workshop-meta">3G World Congress &amp; Mobility Marketplace · Dec 4, 2006 · with T. Magedanz
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">⌂</div>
-            <div>
-              <div class="contact-label">Location</div>
-              <div class="contact-val">Doha, Qatar · Berlin, Germany</div>
-            </div>
+        </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2006</div>
+            <div class="workshop-venue">Hong Kong</div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">⚐</div>
-            <div>
-              <div class="contact-label">Languages</div>
-              <div class="contact-val">Arabic (native) · German · English (fluent)</div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">Operator Challenges with IMS – How Well Will IMS Actually Deliver in Practice?
             </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">◈</div>
-            <div>
-              <div class="contact-label">Current Role</div>
-              <div class="contact-val">Senior Solution Architect – QMIC</div>
+            <div class="workshop-meta">3G World Congress &amp; Mobility Marketplace · Dec 5, 2006 · with T. Magedanz
             </div>
           </div>
         </div>
+
+        <div class="workshop-item" data-wtype="Workshop">
+          <div>
+            <div class="workshop-year">2005</div>
+            <div class="workshop-venue">Berlin, Germany</div>
+          </div>
+          <div>
+            <span class="workshop-type type-workshop">Workshop</span>
+            <div class="workshop-title">IMS Architectures as Key for All-IP Networks</div>
+            <div class="workshop-meta">IQPC 2005 · September 2005 · with T. Magedanz</div>
+          </div>
+        </div>
+
+      </div><!-- /workshop-list -->
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">07 / Publications</span>
+        <div class="section-line"></div>
       </div>
+      <h2 class="section-title">Journal &amp; Conference <strong>Papers</strong></h2>
+
+      <div class="pub-stats">
+        <div class="pub-stat">
+          <div class="pub-stat-num">40+</div>
+          <div class="pub-stat-label">Publications</div>
+        </div>
+        <div class="pub-stat">
+          <div class="pub-stat-num">2</div>
+          <div class="pub-stat-label">Patents Filed</div>
+        </div>
+        <div class="pub-stat">
+          <div class="pub-stat-num">2004–2016</div>
+          <div class="pub-stat-label">Publication Span</div>
+        </div>
+      </div>
+
+      <div class="pub-list">
+
+        <div class="pub-item">
+          <div class="pub-num">2016</div>
+          <div>
+            <div class="pub-title"><em>Performance Evaluation of an M2M Platform in Different Deployment Setups</em>
+            </div>
+            <div class="pub-authors">C. Berrhouma, A. Elmangoush, A. Al-Hezmi, R. Steinke, T. Magedanz</div>
+            <div class="pub-venue">1st IEEE International Conference on Internet-of-Things Design and Implementation
+              (IoTDI) · Berlin, Apr 2016</div>
+            <a href="https://doi.org/10.1109/IoTDI.2015.23" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1109/IoTDI.2015.23</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2015</div>
+          <div>
+            <div class="pub-title"><em>Mobility Management for M2M Communication</em> (Book Chapter)</div>
+            <div class="pub-authors">A. Elmangoush, A. Corici, A. Al-Hezmi, T. Magedanz</div>
+            <div class="pub-venue">Machine-to-Machine (M2M) Communications · Woodhead Publishing · pp. 187–206</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2015</div>
+          <div>
+            <div class="pub-title"><em>Application-derived Communication Protocol Selection in M2M Platforms for Smart
+                Cities</em></div>
+            <div class="pub-authors">A. Elmangoush, R. Steinke, T. Magedanz, A. Corici, A. Bourreau, A. Al-Hezmi</div>
+            <div class="pub-venue">18th International Conference on Intelligence in Next Generation Networks (ICIN) ·
+              Feb 2015</div>
+            <a href="https://doi.org/10.1109/ICIN.2015.7073810" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1109/ICIN.2015.7073810</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2014</div>
+          <div>
+            <div class="pub-title"><em>The Development of M2M Standards for Ubiquitous Sensing Service Layer</em></div>
+            <div class="pub-authors">A. Elmangoush, A. Al-Hezmi, T. Magedanz</div>
+            <div class="pub-venue">Globecom 2014 Workshop – Telecommunications Standards · Austin, TX, USA · Dec 2014
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2014</div>
+          <div>
+            <div class="pub-title"><em>A Real-Time Middleware Platform for the Smart Grid</em></div>
+            <div class="pub-authors">T. Predojev, A. Al-Hezmi, J. Alonso-Zarate, M. Dohler</div>
+            <div class="pub-venue">IEEE Online Conference on Green Communications (GreenComm 2014) · Nov 2014</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2014</div>
+          <div>
+            <div class="pub-title"><em>On the Usage of Standardised M2M Platforms for Smart Energy Management</em></div>
+            <div class="pub-authors">A. Elmangoush, R. Steinke, A. Al-Hezmi, T. Magedanz</div>
+            <div class="pub-venue">28th International Conference on Information Networking (ICOIN 2014) · pp. 79–84
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2013</div>
+          <div>
+            <div class="pub-title"><em>Towards Standard M2M APIs for Cloud-based Telco Service Platforms</em></div>
+            <div class="pub-authors">A. Elmangoush, A. Al-Hezmi, T. Magedanz</div>
+            <div class="pub-venue">11th International Conference on Advances in Mobile Computing &amp; Multimedia (MoMM
+              2013) · pp. 143–150</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2013</div>
+          <div>
+            <div class="pub-title"><em>Open M2M Data – Position Paper</em></div>
+            <div class="pub-authors">H. Coskun, T. Pfeifer, A. Elmangoush, A. Al-Hezmi</div>
+            <div class="pub-venue">IEEE 38th Conference on Local Computer Networks Workshops (LCN) · Oct 2013</div>
+            <a href="https://doi.org/10.1109/LCNW.2013.6758530" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1109/LCNW.2013.6758530</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2011</div>
+          <div>
+            <div class="pub-title"><em>Efficient Session-based Multimedia Content Delivery in Next Generation
+                Networks</em> (PhD Thesis)</div>
+            <div class="pub-authors">A. Al-Hezmi</div>
+            <div class="pub-venue">Technische Universität Berlin · May 2011 · ISBN: 9783838112626</div>
+            <a href="http://opus.kobv.de/tuberlin/volltexte/2011/3077/" target="_blank" rel="noopener" class="pub-doi">↗
+              Full Text</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2011</div>
+          <div>
+            <div class="pub-title"><em>Network Resources Pre-Reservation for Multimedia Content Delivery in
+                Heterogeneous Wireless Networks</em></div>
+            <div class="pub-authors">A. Al-Hezmi, M. Corici, J. Fiedler, T. Magedanz</div>
+            <div class="pub-venue">17th European Wireless Conference · Vienna, Austria · Apr 27–29, 2011 · ISBN:
+              978-3-8007-3343-9</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2011</div>
+          <div>
+            <div class="pub-title"><em>Estimation of Network Resources for Multimedia Content Delivery in Heterogeneous
+                Wireless Networks</em></div>
+            <div class="pub-authors">A. Al-Hezmi, E. Yaacoub</div>
+            <div class="pub-venue">26th Wireless World Research Forum · Doha, Qatar · Apr 11, 2011</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2010</div>
+          <div>
+            <div class="pub-title"><em>A Subscription Application Framework for Location Based Services</em></div>
+            <div class="pub-authors">A. Al-Hezmi, L. Lange, T. Magedanz, F. Schulze</div>
+            <div class="pub-venue">GI-Fachgruppe KuVS · Berlin · Sep 2010</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2009</div>
+          <div>
+            <div class="pub-title"><em>SOA-based Multimedia Streaming Enabler over IMS Networks</em></div>
+            <div class="pub-authors">A. Al-Hezmi, G. Daher, T. Magedanz, J. Simoes</div>
+            <div class="pub-venue">MoMM 2009 · Kuala Lumpur, Malaysia · Dec 14–16, 2009 · ISBN: 978-1-60558-659-5</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>IMS-based IPTV</em> (Book Chapter)</div>
+            <div class="pub-authors">O. Friedrich, S. Arbanowski, A. Al-Hezmi, R. Seeliger</div>
+            <div class="pub-venue">IP Multimedia Subsystem (IMS) Handbook · CRC Press · pp. 411–442 · ISBN:
+              9781420064599</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Evolving the Convergence of Telecommunication and TV Services over NGN</em></div>
+            <div class="pub-authors">A. Al-Hezmi, T. Magedanz, J.J. Pallares, C. Riede</div>
+            <div class="pub-venue">International Journal of Digital Multimedia Broadcasting · Volume 2008</div>
+            <a href="http://dx.doi.org/10.1155/2008/843270" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1155/2008/843270</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Cross-Fertilization of IMS and IPTV Services over NGN</em></div>
+            <div class="pub-authors">A. Al-Hezmi, C. Riede, O. Friedrich, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">ITU-T Kaleidoscope Conference – Innovations in NGN · Geneva · May 12–13, 2008</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Provisioning IMS-based Seamless Triple Play Services over Different Access
+                Networks</em></div>
+            <div class="pub-authors">A. Al-Hezmi, F. Carvalho de Gouveia, M. Sher, O. Friedrich, T. Magedanz</div>
+            <div class="pub-venue">IEEE/IFIP NOMS 2008 · Salvador, Bahia, Brazil · ISBN: 978-1-4244-2066-7</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Session and Media Signaling for IPTV via IMS</em></div>
+            <div class="pub-authors">C. Riede, A. Al-Hezmi, T. Magedanz</div>
+            <div class="pub-venue">1st International Conference on MOBILe Wireless MiddleWARE · Innsbruck, Austria · Feb
+              2008</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Service Discovery &amp; Selection for Next Generation IPTV Environments</em>
+            </div>
+            <div class="pub-authors">O. Friedrich, R. Seeliger, A. Al-Hezmi, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">3rd International Conference on Digital Telecommunications (ICDT 2008)</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Advanced Media Delivery in IMS-based Networks</em></div>
+            <div class="pub-authors">A. Al-Hezmi, C. Riede, J.J. Pallares, T. Magedanz</div>
+            <div class="pub-venue">ICT-MobileSummit 2008 · Stockholm, Sweden · Jun 10–12, 2008 · ISBN: 978-1-905824-08-3
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Design of NGN Mobile Multicast Group Service Enablers</em></div>
+            <div class="pub-authors">M. Zafar, N. Baker, M. Fuchs, F. Pinto, A. Al-Hezmi, T. Mota, M. Knappmeyer</div>
+            <div class="pub-venue">ICT-MobileSummit 2008 · ISBN: 978-1-905824-08-3</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Signalling for IMS and MBMS Integration</em></div>
+            <div class="pub-authors">F. Cabral Pinto, M. Knappmeyer, A. Al-Hezmi</div>
+            <div class="pub-venue">ICT-MobileSummit 2008 · ISBN: 978-1-905824-08-3</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Prototyping Interactive and Personalized IPTV-services on Top of Open IMS
+                Infrastructures</em></div>
+            <div class="pub-authors">O. Friedrich, R. Seeliger, A. Al-Hezmi, C. Riede, S. Arbanowski</div>
+            <div class="pub-venue">EuroITV 2008 · Salzburg, Austria · Jul 3–4, 2008 · Springer LNCS 5066</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>User Equipment for Converged IPTV and Telecommunication Services in Next
+                Generation Networks</em></div>
+            <div class="pub-authors">O. Friedrich, R. Seeliger, A. Al-Hezmi, S. Arbanowski</div>
+            <div class="pub-venue">Human System Interactions (HSI) · May 25–27, 2008</div>
+            <a href="https://doi.org/10.1109/HSI.2008.4581559" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1109/HSI.2008.4581559</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Provisioning of Multimedia Services over Open NGN Testbed</em></div>
+            <div class="pub-authors">A. Al-Hezmi, F. Carvalho de Gouveia, T. Magedanz</div>
+            <div class="pub-venue">Ambi-sys 2008 · Quebec, Canada · Feb 11–14, 2008 · ISBN: 978-963-9799-16-5</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2008</div>
+          <div>
+            <div class="pub-title"><em>Interactive Multimedia Services over Open NGN Testbed</em></div>
+            <div class="pub-authors">A. Al-Hezmi, O. Friedrich, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">Tridentcom 2008 · Innsbruck, Austria · Mar 18–20, 2008</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Requirements for an IMS-based Quadruple Play Service Architecture</em></div>
+            <div class="pub-authors">A. Al-Hezmi, O. Friedrich, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">IEEE Network Journal · Vol. 21, Issue 2 · March–April 2007 · pp. 28–33</div>
+            <a href="https://doi.org/10.1109/MNET.2007.334309" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1109/MNET.2007.334309</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Provisioning of an Open NGN/Triple Play Toolkit and Testbed</em></div>
+            <div class="pub-authors">A. Al-Hezmi, O. Friedrich, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">TridentCom 2007 · Orlando, Florida · May 21–23, 2007 · ISBN: 1-4244-0739-7</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Enabling IMS with Multicast and Broadcast Capabilities</em></div>
+            <div class="pub-authors">A. Al-Hezmi, M. Knappmeyer, B. Ricks, F. Cabral Pinto, R. Tönjes</div>
+            <div class="pub-venue">PIMRC 2007 · Athens, Greece · Sep 3–7, 2007 · ISBN: 1-4244-1144-0</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>IMS-based Triple Play Toolkit – Der FOKUS Open IMS Playground</em></div>
+            <div class="pub-authors">A. Al-Hezmi, N. Blum, T. Magedanz</div>
+            <div class="pub-venue">Praxis Profiline – Triple Play · pp. 18–21 · ISBN: 3-8259-1948 · Jul 2007</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>IP Multimedia Subsystem (IMS) Based Interactive Triple Play Framework</em></div>
+            <div class="pub-authors">A. Al-Hezmi, M. Sher, T. Magedanz</div>
+            <div class="pub-venue">5th International Workshop on Frontiers of Information Technology (FIT) · Islamabad ·
+              Dec 17–18, 2007</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Enabling Triple Play Services over NGN</em></div>
+            <div class="pub-authors">A. Al-Hezmi, F. Carvalho de Gouveia, T. Magedanz</div>
+            <div class="pub-venue">IEEE ICICT 2007 · Cairo, Egypt · Dec 16–18, 2007 · ISBN: 1-4244-1430-X</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Evolution of NGN towards an Integrated Platform for IMS-based IPTV Services</em>
+            </div>
+            <div class="pub-authors">O. Friedrich, A. Al-Hezmi, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">IEEE SAINT 2007 Workshop (SPMS) · Hiroshima, Japan · Jan 15–19, 2007</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Next Generation IPTV Services for an Extended IMS Architecture</em></div>
+            <div class="pub-authors">O. Friedrich, A. Al-Hezmi, S. Arbanowski, T. Magedanz</div>
+            <div class="pub-venue">ISADS 2007 · March 2007 · pp. 429–436</div>
+            <a href="https://doi.org/10.1109/ISADS.2007.52" target="_blank" rel="noopener" class="pub-doi">↗ DOI:
+              10.1109/ISADS.2007.52</a>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Quadruple Play – Session Management Enabler for Multimedia Streaming</em></div>
+            <div class="pub-authors">C. Riede, A. Al-Hezmi, T. Magedanz</div>
+            <div class="pub-venue">16th IST Mobile &amp; Wireless Communications Summit · Budapest · Jul 1–5, 2007</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2007</div>
+          <div>
+            <div class="pub-title"><em>Advanced Multicast and Broadcast Content Distribution over Mobile Cellular
+                Networks</em></div>
+            <div class="pub-authors">M. Knappmeyer, B. Ricks, A. Al-Hezmi, R. Tönjes</div>
+            <div class="pub-venue">GlobeCOM 2007 · Washington, DC · Nov 26–30, 2007 · ISBN: 978-1-4244-1043-9</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2006</div>
+          <div>
+            <div class="pub-title"><em>Internet Multimedia Subsystem as Enabling Platform for Next Generation TV</em>
+            </div>
+            <div class="pub-authors">St. Arbanowski, A. Al-Hezmi, O. Friedrich, T. Magedanz</div>
+            <div class="pub-venue">IEEE ICC 2006 · Istanbul, Turkey · June 2006</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2006</div>
+          <div>
+            <div class="pub-title"><em>Next Generation Service Architecture: Challenges and Approaches</em></div>
+            <div class="pub-authors">A. Al-Hezmi, B. Mrohs, C. Räck, M. Elkotob, S. Steglich</div>
+            <div class="pub-venue">IEEE ASWN 2006 · Berlin · May 29–31, 2006</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2006</div>
+          <div>
+            <div class="pub-title"><em>Towards an Interactive IPTV for Mobile Subscribers</em></div>
+            <div class="pub-authors">A. Al-Hezmi, Y. Rebahi, T. Magedanz, S. Arbanowski</div>
+            <div class="pub-venue">IEEE ICDT 2006 · Côte d'Azur, France · Aug 29–31, 2006 · ISBN: 0-7695-2560-0</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2006</div>
+          <div>
+            <div class="pub-title"><em>Enabling Multimedia Broadcast/Multicast Services over Converged Networks</em>
+            </div>
+            <div class="pub-authors">N. Baker, M. Zafar, A. Al-Hezmi, M. Fuchs</div>
+            <div class="pub-venue">WWRF #17 · Heidelberg, Germany · Nov 2006</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-num">2006</div>
+          <div>
+            <div class="pub-title"><em>Spam Prevention for Voice over IP</em></div>
+            <div class="pub-authors">Y. Rebahi, A. Al-Hezmi</div>
+            <div class="pub-venue">NITS 2006 · King Saud University · Riyadh, Saudi Arabia · Feb 2006</div>
+          </div>
+        </div>
+
+      </div><!-- /pub-list -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>l-Hezmi · Enterprise | Solution | System | Cloud | IoT Architect · Doha · Berlin</p>
+    <p style="margin-top:0.4rem;">alhezmi@gmail.com · +974 5085 7036</p>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal-content">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div id="modal-body"></div>
     </div>
   </div>
-</section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">02 / Experience</span>
-      <div class="section-line"></div>
-    </div>
-    <h2 class="section-title">Professional <strong>Journey</strong></h2>
-    <div style="margin-top:2.5rem;" class="timeline">
+  <script>
+    // ── CANVAS BACKGROUND ──
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Senior Solution Architect</div>
-          <div class="tl-period">May 2022 – Present</div>
-        </div>
-        <div class="tl-company">Qatar Mobility Innovations Center (QMIC) <span class="tl-sep">·</span> Doha</div>
-        <ul class="tl-bullets">
-          <li>Define organizational architecture framework and enforce architecture standards and best practices.</li>
-          <li>Develop solution architecture strategy, processes, tools and technology stack and oversee product development.</li>
-          <li>Assess architecture of all QMIC intelligent mobility and smart city solutions, ensuring cloud-agnostic implementation.</li>
-          <li>Design comprehensive end-to-end architecture incorporating security-by-design and zero-trust model principles.</li>
-          <li>Enhance existing solutions with AI enablers (Generative AI and computer vision) to ensure competitiveness.</li>
-          <li>Provide guidance for migrating from baseline monolith to microservice architecture.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Overall Architect</div>
-          <div class="tl-period">Apr 2020 – May 2022</div>
-        </div>
-        <div class="tl-company">Volkswagen AG / CARIAD <span class="tl-sep">·</span> Wolfsburg</div>
-        <ul class="tl-bullets">
-          <li>Spearheaded the overall architecture of various connected car solutions for all VW brands in different markets.</li>
-          <li>Developed comprehensive end-to-end architecture following TOGAF for webapp, mobile app, backend, cloud platforms, and vehicle integration — resulting in over 60% user enrollment.</li>
-          <li>Managed several architects, fostering collaboration and alignment with key objectives.</li>
-          <li>Defined and documented architecture management activities through patterns, templates, guidance, and decisions using LeanIX and EA Sparx.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Senior IT/IoT Architect</div>
-          <div class="tl-period">Mar 2016 – Jan 2020</div>
-        </div>
-        <div class="tl-company">T-Systems International <span class="tl-sep">·</span> Berlin</div>
-        <ul class="tl-bullets">
-          <li>Developed architectures of various Mobile Online Services for Volkswagen Car-Net following TOGAF and SAFe.</li>
-          <li>Designed identity and access management framework for infotainment services ensuring regulatory compliance.</li>
-          <li>Defined technology architecture of various backend system components in AWS and Azure cloud.</li>
-          <li>Guided development of innovative IoT services for different vertical domains with multidisciplinary teams.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Senior Solution Architect</div>
-          <div class="tl-period">Nov 2012 – Feb 2016</div>
-        </div>
-        <div class="tl-company">Fraunhofer FOKUS <span class="tl-sep">·</span> Berlin</div>
-        <ul class="tl-bullets">
-          <li>Led the OpenMTC team to develop and deliver an IoT platform supporting smart home, smart cities, healthcare, environmental monitoring, smart grids, and Industry 4.0.</li>
-          <li>Accomplished advisory service projects for ICT companies in M2M/IoT service innovation, NFV and SDN.</li>
-          <li>Expanded OpenMTC marketing activities and gained more than 50% customers from new industry segments.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Solution Architect</div>
-          <div class="tl-period">Mar 2011 – Oct 2012</div>
-        </div>
-        <div class="tl-company">QMIC <span class="tl-sep">·</span> Doha</div>
-        <ul class="tl-bullets">
-          <li>Contributed to business development and IoT platform for the Intelligent Transportation System domain.</li>
-          <li>Guided and developed domain-oriented multimedia applications over an IMS-based core.</li>
-          <li>Contributed to the definition of QMIC strategic plan and assisted the execution plan.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">IMS Solutions Architect</div>
-          <div class="tl-period">May 2008 – Oct 2010</div>
-        </div>
-        <div class="tl-company">Saudi Telecom Company (STC) <span class="tl-sep">·</span> Riyadh</div>
-        <ul class="tl-bullets">
-          <li>Oversaw multiple network design projects within the NGN migration program.</li>
-          <li>Dimensioned STC NGN/IMS network architectures for delivering converged multimedia services.</li>
-          <li>Prepared technical specifications and tender/procurement (RFI/RFP) documents for IMS.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Senior Solution Architect</div>
-          <div class="tl-period">Jan 2004 – Apr 2008</div>
-        </div>
-        <div class="tl-company">Fraunhofer FOKUS <span class="tl-sep">·</span> Berlin</div>
-        <ul class="tl-bullets">
-          <li>Initiated developments related to IMS-based multimedia solutions and related interactive multimedia services.</li>
-          <li>Led development of an IMS-based multimedia content delivery platform for fixed and wireless infrastructure.</li>
-          <li>Filed two patents in service interaction based on publish/subscription architecture pattern.</li>
-          <li>Contributed to the IMS-based streaming subsystem standard within ETSI NGN architecture.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="tl-header">
-          <div class="tl-role">Developer</div>
-          <div class="tl-period">Dec 1999 – Dec 2003</div>
-        </div>
-        <div class="tl-company">Siemens ICM <span class="tl-sep">·</span> Berlin</div>
-        <ul class="tl-bullets">
-          <li>Designed and implemented interactive multimedia response unit for mobile all-IP networks.</li>
-          <li>Joined the development of testbed setup of the 3GPP IP Multimedia Subsystem (IMS).</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">03 / Skills</span>
-      <div class="section-line"></div>
-    </div>
-    <h2 class="section-title">Technical <strong>Expertise</strong></h2>
-    <div style="margin-top:2.5rem;" class="skills-grid">
-      <div class="skill-group">
-        <div class="skill-group-title">EA Tools & Frameworks</div>
-        <div class="skill-tags">
-          <span class="tag">TOGAF</span><span class="tag">SAP LeanIX</span><span class="tag">EA Sparx</span>
-          <span class="tag">Orbus Software</span><span class="tag">ArchiMate</span><span class="tag">UML</span>
-          <span class="tag">BPMN</span><span class="tag">Draw.io</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Software Engineering</div>
-        <div class="skill-tags">
-          <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Quarkus</span>
-          <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Vue</span>
-          <span class="tag">Python</span><span class="tag">C/C++</span><span class="tag">REST</span>
-          <span class="tag">OpenAPI</span><span class="tag">Microservices</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Cloud & Infrastructure</div>
-        <div class="skill-tags">
-          <span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">GCP</span>
-          <span class="tag">Kafka</span><span class="tag">Docker</span><span class="tag">Terraform</span>
-          <span class="tag">Keycloak</span><span class="tag">Zero-Trust</span><span class="tag">IoT Platforms</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Protocols & Standards</div>
-        <div class="skill-tags">
-          <span class="tag">MQTT</span><span class="tag">CoAP</span><span class="tag">SIP</span>
-          <span class="tag">HTTP</span><span class="tag">NGN/IMS</span><span class="tag">VoIP</span>
-          <span class="tag">OneM2M</span><span class="tag">OMA NGSI</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Certifications</div>
-        <div class="skill-tags">
-          <span class="tag">TOGAF Certified</span><span class="tag">SAFe® 5 Architect</span>
-          <span class="tag">PMP</span><span class="tag">Scrum Product Owner</span>
-          <span class="tag">Machine Learning</span><span class="tag">Zero-Trust Architecture</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Industry Domains</div>
-        <div class="skill-tags">
-          <span class="tag">Automotive</span><span class="tag">Smart City</span>
-          <span class="tag">HealthCare</span><span class="tag">Industrial IoT</span>
-          <span class="tag">Telecommunication</span><span class="tag">Smart Grid</span>
-          <span class="tag">FinTech</span><span class="tag">eGovernment</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">04 / Projects</span>
-      <div class="section-line"></div>
-    </div>
-    <h2 class="section-title">Project <strong>Portfolio</strong></h2>
-    <div style="margin-top:2rem;">
-      <div class="projects-filter">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="Automotive">Automotive</button>
-        <button class="filter-btn" data-filter="Smart City">Smart City</button>
-        <button class="filter-btn" data-filter="IoT">IoT</button>
-        <button class="filter-btn" data-filter="Telecom">Telecom</button>
-        <button class="filter-btn" data-filter="eHealth">eHealth</button>
-        <button class="filter-btn" data-filter="eGov">eGovernment</button>
-        <button class="filter-btn" data-filter="Enterprise">Enterprise Architecture</button>
-        <button class="filter-btn" data-filter="FinTech">FinTech</button>
-      </div>
-      <div class="projects-grid" id="projects-grid"></div>
-    </div>
-  </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">05 / Education</span>
-      <div class="section-line"></div>
-    </div>
-    <h2 class="section-title">Academic <strong>Background</strong></h2>
-    <div style="margin-top:2.5rem;">
-      <div class="edu-card">
-        <div class="edu-degree">PhD (Dr.-Ing.) in Telecommunication</div>
-        <div class="edu-inst">Technische Universität Berlin · 2011</div>
-        <div class="edu-desc">"Efficient Session-based Multimedia Content Delivery in Next Generation Networks"</div>
-        <span class="edu-badge">⋆ Excellent Distinction</span>
-      </div>
-      <div class="edu-card">
-        <div class="edu-degree">Diplom / Master of Electrical Engineering</div>
-        <div class="edu-inst">Technische Universität Berlin · 2003</div>
-        <div class="edu-desc">Telecommunication Engineering and Networks</div>
-        <span class="edu-badge">⋆ Excellent Distinction</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>Dr. Adel Al-Hezmi · Enterprise | Solution | System | Cloud | IoT Architect · Doha · Berlin</p>
-  <p style="margin-top:0.4rem;">alhezmi@gmail.com · +974 5085 7036</p>
-</footer>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal-content">
-    <button class="modal-close" id="modal-close">✕</button>
-    <div id="modal-body"></div>
-  </div>
-</div>
-
-<script>
-// ── CANVAS BACKGROUND ──
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let w, h, particles = [];
-const resize = () => {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-};
-resize();
-window.addEventListener('resize', resize);
-
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * w;
-    this.y = Math.random() * h;
-    this.r = Math.random() * 1.2 + 0.3;
-    this.a = Math.random() * Math.PI * 2;
-    this.speed = Math.random() * 0.3 + 0.1;
-    this.opacity = Math.random() * 0.5 + 0.1;
-  }
-  update() {
-    this.x += Math.cos(this.a) * this.speed;
-    this.y += Math.sin(this.a) * this.speed;
-    if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(197,168,122,${this.opacity})`;
-    ctx.fill();
-  }
-}
-
-for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-// Draw subtle grid
-function drawGrid() {
-  ctx.clearRect(0, 0, w, h);
-  ctx.strokeStyle = 'rgba(197,168,122,0.03)';
-  ctx.lineWidth = 1;
-  const size = 80;
-  for (let x = 0; x < w; x += size) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
-  for (let y = 0; y < h; y += size) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(drawGrid);
-}
-drawGrid();
-
-// ── NAV SCROLL ──
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), e.target.dataset.delay || 0);
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.r = Math.random() * 1.2 + 0.3;
+        this.a = Math.random() * Math.PI * 2;
+        this.speed = Math.random() * 0.3 + 0.1;
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += Math.cos(this.a) * this.speed;
+        this.y += Math.sin(this.a) * this.speed;
+        if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(197,168,122,${this.opacity})`;
+        ctx.fill();
+      }
     }
-  });
-}, { threshold: 0.1 });
 
-document.querySelectorAll('.timeline-item, .skill-group, .project-card').forEach((el, i) => {
-  el.dataset.delay = (i % 6) * 80;
-  observer.observe(el);
-});
+    for (let i = 0; i < 120; i++) particles.push(new Particle());
 
-// ── PROJECTS DATA ──
-const projects = [
-  {
-    domain: 'Automotive',
-    title: 'We-Connect Services',
-    role: 'Overall Architect',
-    period: 'Apr 2016 – May 2022',
-    org: 'Volkswagen AG / CARIAD',
-    desc: 'Lead end-to-end architecture design of several connected car solutions for all VW brands and global markets following TOGAF.',
-    tasks: [
-      'Lead the end-to-end architecture design of several connected car solutions for all VW brands and global markets',
-      'Provide architectural oversight for the implementation and monitor for conformance',
-      'Define the integration architecture of several system components and assess the related implementation activities',
-      'Conduct architecture reviews and provide advisory services for new solutions and platforms',
-      'Define the technology roadmap of the targeted services in the backend and frontend clients',
-      'Developed the business capabilities, data, application, security and technology architectures (TOGAF)',
-      'Designed an Authentication and Authorization framework for various VW security domains',
-    ],
-    env: ['Automotive', 'Distributed systems', 'Cloud infrastructure', 'Vehicle', 'Mobile app', 'Web portal'],
-    tech: ['Enterprise Architect', 'Java', 'SpringBoot', 'REST', 'OpenAPI', 'Micro-services', 'Azure', 'AWS', 'Cloud-Foundry', 'MQTT', 'Kafka', 'EA Sparx'],
-    link: 'https://www.cariad.technology',
-    filter: 'Automotive'
-  },
-  {
-    domain: 'Autonomous Driving',
-    title: 'Autonomous Driving Lab',
-    role: 'Solution Architect & Technology Advisor',
-    period: 'Sep 2023 – Present',
-    org: 'QMIC',
-    desc: 'Establish business and technology goals for the internal autonomous driving project, evaluating open-source AD/ADAS solutions including Apollo and Autoware.',
-    tasks: [
-      'Establish the business and technology goals for the internal autonomous driving project',
-      'Outline the architecture of autonomous driving (AD), covering both hardware and software components',
-      'Evaluate a range of open-source AD and ADAS solutions, including Apollo and Autoware',
-      'Establish an innovation and research development lab with controlled testbed and living lab',
-      'Supervise the creation of cloud point and HD maps of specific test environments',
-      'Define the target architecture for enabling autonomous driving with local road operators',
-      'Assist sales efforts in responding to RFPs related to road infrastructure for AD and MaaS',
-    ],
-    env: ['Autonomous Driving', 'Mobility as a Service', 'Software-Defined Vehicle', 'Cloud infrastructure'],
-    tech: ['Architecture', 'C++', 'Python', 'Cloud'],
-    link: 'http://www.qmic.com/',
-    filter: 'Automotive'
-  },
-  {
-    domain: 'Smart Road / Infrastructure',
-    title: 'Smart Road Program',
-    role: 'Solution Architect & Technology Advisor',
-    period: 'Oct 2023 – Present',
-    org: 'QMIC · Client: Public Works Authority',
-    desc: 'Aims to improve road safety, traffic efficiency and enhance customer experience for the Public Works Authority (Ashghal) in Qatar.',
-    tasks: [
-      'Evaluate the current architecture of the road operator systems and road infrastructure assets',
-      'Establish the target high-level architecture integrating road assets, QMIC smart mobility platforms, and public road operator infrastructure',
-      'Identify the key initial technology enablers to be incorporated into the project',
-      'Develop a methodology based on the Scaled Agile Framework (SAFe)',
-      'Advocate for a cloud-first and AI-first strategy emphasizing data analytics, safety enforcement, and sustainability',
-      'Outline migration activities and plan for transitioning from on-premises to cloud infrastructure',
-    ],
-    env: ['Road operator', 'Mobility as a Service', 'Cloud infrastructure', 'Migration to cloud'],
-    tech: ['Architecture', 'Cloud', 'AI', 'Java', 'SpringBoot', 'Quarkus', 'React', 'Draw.io'],
-    link: 'http://www.qmic.com/',
-    filter: 'Smart City'
-  },
-  {
-    domain: 'Maritime',
-    title: 'Maritime Fleet Management Solution',
-    role: 'Solution Architect & Software Developer',
-    period: 'Oct 2024 – Present',
-    org: 'QMIC',
-    desc: 'End-to-end architecture for monitoring and managing an e-boat fleet, integrating Signal-K server with MQTT broker for telemetry data collection.',
-    tasks: [
-      'Designed the end-to-end architecture for monitoring and managing an e-boat fleet',
-      'Built a gateway to connect a Signal-K server with an MQTT broker, enabling telemetry data collection',
-      'Developed backend components for data processing and e-boat management',
-      'Created a web frontend to showcase monitoring and navigation capabilities',
-    ],
-    env: ['Embedded HW using Raspberry-Pi', 'Maritime', 'Backend'],
-    tech: ['Python', 'React', 'JavaScript', 'Java', 'MQTT'],
-    link: 'http://www.qmic.com/',
-    filter: 'IoT'
-  },
-  {
-    domain: 'eGovernment',
-    title: 'Single Window (investor.sw.gov.qa)',
-    role: 'Solution Architect',
-    period: 'Feb 2023 – May 2023',
-    org: 'QMIC · Client: MoCI',
-    desc: 'Architecture assessment and target solution design for the Single Window platform at the Ministry of Commerce & Industry.',
-    tasks: [
-      'Evaluated the baseline architecture of the SW project, emphasizing architecture domains and interdependencies',
-      'Examined the source code of both frontend and backend components (monolithic architecture)',
-      'Presented an independent perspective to underscore the architectural limitations',
-      'Suggested recommendations or solutions for each challenge identified',
-      'Outlined the target solution architecture to align with the project business objectives',
-    ],
-    env: ['E-Government at Ministry of Commerce & Industry', 'Distributed systems', 'Web client frontend and backend platform'],
-    tech: ['IBM backend technologies', 'Java', 'SpringBoot', 'REST', 'OpenAPI', 'Micro-services', 'Orbus Software'],
-    link: 'https://investor.sw.gov.qa',
-    filter: 'eGov'
-  },
-  {
-    domain: 'Enterprise Architecture',
-    title: 'Enterprise Architecture Management – Malomatia',
-    role: 'Enterprise Architect',
-    period: 'Jun 2022 – Apr 2023',
-    org: 'QMIC · Client: Malomatia',
-    desc: 'Full Enterprise Architecture Management initiative for Malomatia, establishing EA governance structures and architecture community.',
-    tasks: [
-      'Defined the purpose, scope and goal of the EAM initiative',
-      'Set up EA governance structures, roles, and decision-making frameworks including EA board and architecture community',
-      'Selected TOGAF as the architecture framework, ArchiMate for modelling and Orbus Software as EA tool',
-      'Captured the baseline architecture in a central repository for all architects',
-      'Established an architecture community to ensure collaboration and knowledge share',
-    ],
-    env: ['Enterprise architecture management', 'Architecture repository', 'Architecture board', 'Architecture community'],
-    tech: ['Enterprise architecture management', 'TOGAF', 'ArchiMate', 'Orbus Software', 'LeanIX'],
-    link: 'https://www.malomatia.com',
-    filter: 'Enterprise'
-  },
-  {
-    domain: 'eGovernment',
-    title: 'Al Nadeeb – Customs (ecustoms.gov.qa)',
-    role: 'Solution Architect',
-    period: 'Jan 2023 – Feb 2023',
-    org: 'QMIC · Client: General Authority of Customs',
-    desc: 'Architecture assessment for the Al Nadeeb project at General Authority of Customs with actionable improvement recommendations.',
-    tasks: [
-      'Evaluated the baseline architecture of the Al-Nadeeb project',
-      'Presented a broad overview from an independent perspective to underscore architectural limitations',
-      'Suggested recommendations or solutions for each challenge as input to the project backlog',
-    ],
-    env: ['E-Government at General Authority of Customs', 'Distributed systems', 'Web client frontend and backend platform'],
-    tech: ['Java', 'SpringBoot', 'React', 'REST', 'OpenAPI', 'Micro-services'],
-    link: 'https://www.ecustoms.gov.qa',
-    filter: 'eGov'
-  },
-  {
-    domain: 'Enterprise Architecture',
-    title: 'SAP Enterprise Architecture – Qatar Tax Authority',
-    role: 'Solution Architect & Technology Advisor',
-    period: 'Oct 2022 – Dec 2022',
-    org: 'QMIC · Client: Qatar Tax Authority',
-    desc: 'Building the enterprise architecture management system for Qatar Tax Authority, documenting SAP infrastructure and developing baseline architecture in TOGAF.',
-    tasks: [
-      'Collaborated with cross-functional teams across Business and IT to identify all SAP infrastructure components, applications, and interfaces',
-      'Established the Enterprise Architecture Management (EAM) repository using Orbus Software',
-      'Documented all SAP-related components, interfaces, and applications within the repository',
-      'Developed the baseline architecture in alignment with TOGAF methodology, utilizing the ArchiMate modelling language',
-      'Delivered a comprehensive presentation and handed over the architecture repository to the IT team',
-    ],
-    env: ['SAP mobile platform', 'SAP Fiori', 'SAP Gateway', 'S/4Hana'],
-    tech: ['SAP solutions', 'On-premise', 'Enterprise Architecture Management', 'TOGAF', 'ArchiMate', 'Orbus Software'],
-    link: null,
-    filter: 'Enterprise'
-  },
-  {
-    domain: 'eHealth',
-    title: 'gematik Connector/Gateway',
-    role: 'IoT Architect',
-    period: 'Oct 2019 – Dec 2019',
-    org: 'T-Systems International',
-    desc: 'Architectural design of the connector serving as a gateway between client system components and the gematik Telemetry Infrastructure (TI) backend.',
-    tasks: [
-      'Conducted a thorough review of the gematik Telemetry Infrastructure (TI) and its associated connector gateway',
-      'Contributed to the architectural design of the connector as a gateway to the gematik TI backend',
-      'Oversaw implementation, quality assurance, and deployment processes',
-    ],
-    env: ['eHealth backbone', 'IoT gateway'],
-    tech: ['C', 'C++', 'VPN', 'PKI', 'HTTP'],
-    link: null,
-    filter: 'eHealth'
-  },
-  {
-    domain: 'FinTech',
-    title: 'Implementation & Infrastructure Assessment',
-    role: 'Enterprise Architect',
-    period: 'Jan 2020 – Mar 2020',
-    org: 'T-Systems International',
-    desc: 'Assessment of infrastructure, technology platforms, and CI/CD pipelines for a digital banking platform and credit bureau.',
-    tasks: [
-      'Reviewed the infrastructure and technology platforms of a digital banking platform',
-      'Assessed the entire development, continuous integration and delivery pipeline of different development teams',
-      'Reviewed a digital platform assessment on the value chain and the configurability assessment',
-      'Deep-dive assessment of core product platforms of digital banking services and credit bureau',
-    ],
-    env: ['FinTech', 'Digital banking services'],
-    tech: ['Enterprise Architect', 'REST', 'Open Banking API', 'Micro-services', 'Cloud-Foundry', 'CI/CD'],
-    link: null,
-    filter: 'FinTech'
-  },
-  {
-    domain: 'IoT R&D',
-    title: 'OpenMTC – M2M/IoT Platform',
-    role: 'Business Development Manager',
-    period: 'Jan 2012 – Feb 2016',
-    org: 'Fraunhofer FOKUS',
-    desc: 'Open Machine-Type Communication platform supporting smart home, smart cities, healthcare, environmental monitoring, smart grids, and Industry 4.0.',
-    tasks: [
-      'Defined the platform short- and long-term strategy',
-      'Identified the target vertical domains and related applications to be supported',
-      'Defined the overall architecture of the platform and standards to be followed',
-      'Developed the OpenMTC application layer framework associated with targeted domains',
-      'Built collaboration and partnership framework with external partners',
-      'Presented the platform in different workshops, exhibitions and conferences',
-    ],
-    env: ['Smart city', 'Smart building', 'Interworking with different platforms'],
-    tech: ['OpenMTC', 'M2M/IoT', 'ELV', 'ZigBee', 'WiFi', 'Bluetooth', 'Semantic'],
-    link: null,
-    filter: 'IoT'
-  },
-  {
-    domain: 'Smart City / Mobility',
-    title: 'EMBERS – Mobility Back-End as a Service',
-    role: 'Project Manager & Technical Architect',
-    period: 'Dec 2015 – Feb 2016',
-    org: 'Fraunhofer FOKUS',
-    desc: 'Enabling a Mobility Back-End as a Service project featuring traffic situation monitoring, vehicle tracking and parking space availability.',
-    tasks: [
-      'Developed a mobility solution with features: traffic situation, vehicle tracking and parking space availability',
-      'Defined the end-to-end architecture enabling integration of various data sources and data streams',
-      'Extended the MBaaS with standardized open APIs such as OneM2M, ETSI M2M and OMA LW M2M',
-      'Rolled out the MBaaS platform to the market',
-      'Stimulated the Smart City mobility ecosystem in Europe through exposing EMBERS open APIs to developers',
-    ],
-    env: ['Smart city', 'M2M/IoT', 'Intelligent Transportation System', 'Mobility'],
-    tech: ['OpenMTC', 'OneM2M', 'ETSI M2M', 'OMA LW M2M'],
-    link: null,
-    filter: 'Smart City'
-  },
-  {
-    domain: 'Industrial Internet',
-    title: 'SmartOrchestra',
-    role: 'Project Manager & Technical Architect',
-    period: 'Dec 2015 – Feb 2016',
-    org: 'Fraunhofer FOKUS',
-    desc: 'An open platform for integrating various cyber physical systems, enabling stakeholders to combine, orchestrate, and promote smart services in an open market space.',
-    tasks: [
-      'Interacted with various stakeholders to collect service scenarios in building management and industrial Internet',
-      'Defined the required cyber physical system to be integrated',
-      'Defined interconnection mechanisms and related communication technologies, transport protocols, interfaces and data models',
-      'Developed an open platform to be integrated with various cyber physical systems',
-      'Enabled various stakeholders to be involved in the entire service delivery with flexible business offering',
-    ],
-    env: ['Industrial Internet', 'Connected Services', 'Interworking with different cyber physical systems'],
-    tech: ['OpenMTC', 'M2M/IoT', 'ELV', 'ZigBee', 'WiFi', 'Bluetooth', 'Semantic'],
-    link: null,
-    filter: 'IoT'
-  },
-  {
-    domain: 'Smart City',
-    title: 'FIESTA – Federated IoT Smart City',
-    role: 'Manager',
-    period: 'Feb 2015 – Feb 2016',
-    org: 'Fraunhofer FOKUS',
-    desc: 'Integrated architecture for Federated Interoperable Semantic IoT/cloud Testbeds and Applications across European smart city infrastructures.',
-    tasks: [
-      'Defined use cases covering various data sources from different smart city infrastructures distributed in Europe',
-      'Defined the federated layer/interfaces and data model based on semantic interoperability',
-      'Managed the development and deployment of Fraunhofer FOKUS smart building testbed',
-    ],
-    env: ['Smart city', 'Smart building', 'Federated cloud'],
-    tech: ['OpenMTC', 'ELV', 'Semantic IoT applications'],
-    link: null,
-    filter: 'Smart City'
-  },
-  {
-    domain: 'eHealth / IoT',
-    title: 'FI-STAR – Future Internet Healthcare',
-    role: 'Manager',
-    period: 'Apr 2013 – Sep 2015',
-    org: 'Fraunhofer FOKUS',
-    desc: 'Early trials in the HealthCare domain building on Future Internet (FI) technology leveraging on the outcomes of FI-PPP FIWARE project.',
-    tasks: [
-      'Contributed to requirements engineering by defining project use cases for monitoring and digitalization in healthcare',
-      'Mapped functionalities to existing FIWARE generic enablers or next specific enablers',
-      'Defined the project architecture covering the front-end and backend infrastructure',
-      'Managed the entire project implementation activities carried out by more than 18 partners',
-    ],
-    env: ['HealthCare', 'Hospitals', 'Rehabilitation clinic', 'Pharma industry'],
-    tech: ['OpenMTC', 'FIWARE', 'OMA NGSI-9/10', 'Cloud'],
-    link: 'https://cordis.europa.eu/project/id/604691',
-    filter: 'eHealth'
-  },
-  {
-    domain: 'Telecom R&D',
-    title: 'NGN Testbed – QMIC',
-    role: 'Manager',
-    period: 'March 2011 – Oct 2012',
-    org: 'Qatar Mobility Innovations Center',
-    desc: 'Establishment of an open services testbed based on NGN/IMS, enabling application developers to access service enablers through open programming interfaces.',
-    tasks: [
-      'Defined project objectives, goals and identified project partners',
-      'Created the project proposal and defined the required budget',
-      'Managed project deployment and installation',
-      'Led applications development based on real-time communication capabilities',
-      'Launched the testbed for community developers',
-    ],
-    env: ['NGN/IMS-based service enablers', 'Policy-based service brokers', 'Service broker'],
-    tech: ['NGN/IMS core', 'Presence server', 'XDMS', 'Call control', 'SIP', 'OMA NGSI', 'Parlayx', 'RESTfull'],
-    link: null,
-    filter: 'Telecom'
-  },
-  {
-    domain: 'Telecom',
-    title: 'STC NGN Consultancy',
-    role: 'Consultant',
-    period: 'May 2008 – Sep 2010',
-    org: 'Saudi Telecommunication Company',
-    desc: 'Consultancy services on different NGN projects including PSTN migration, core network strategic planning, and IMS RFP definition.',
-    tasks: [
-      'Defined PSTN migration from PSTN to softswitch-based NGN infrastructure',
-      'Contributed to STC core network strategic plan',
-      'Specified high and low level design of the NGN',
-      'Managed PSTN migration activities to NGN',
-      'Defined high level design of an IP-based interworking solution between NGN, PSTN, international gateways and mobile networks',
-      'Contributed the deployment strategy of a converged IMS network',
-    ],
-    env: ['Fixed and mobile network', 'Switching core', 'NGN', 'PSTN', 'GSM', 'UMTS', 'LTE'],
-    tech: ['IMS core', 'Softswitch', 'IPTV', 'FTTH', 'VAS', 'IP-centrecx'],
-    link: 'https://www.stc.com',
-    filter: 'Telecom'
-  },
-];
+    // Draw subtle grid
+    function drawGrid() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(197,168,122,0.03)';
+      ctx.lineWidth = 1;
+      const size = 80;
+      for (let x = 0; x < w; x += size) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+      for (let y = 0; y < h; y += size) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(drawGrid);
+    }
+    drawGrid();
 
-// ── RENDER PROJECTS ──
-const grid = document.getElementById('projects-grid');
-let currentFilter = 'all';
+    // ── NAV SCROLL ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
 
-function renderProjects(filter) {
-  grid.innerHTML = '';
-  const filtered = filter === 'all' ? projects : projects.filter(p => p.filter === filter);
-  filtered.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'project-card';
-    card.dataset.delay = (i % 4) * 100;
-    card.innerHTML = `
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), e.target.dataset.delay || 0);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.timeline-item, .skill-group, .project-card').forEach((el, i) => {
+      el.dataset.delay = (i % 6) * 80;
+      observer.observe(el);
+    });
+
+    // ── PROJECTS DATA ──
+    const projects = [
+      {
+        domain: 'Automotive',
+        title: 'We-Connect Services',
+        role: 'Overall Architect',
+        period: 'Apr 2016 – May 2022',
+        org: 'Volkswagen AG / CARIAD',
+        desc: 'Lead end-to-end architecture design of several connected car solutions for all VW brands and global markets following TOGAF.',
+        tasks: [
+          'Lead the end-to-end architecture design of several connected car solutions for all VW brands and global markets',
+          'Provide architectural oversight for the implementation and monitor for conformance',
+          'Define the integration architecture of several system components and assess the related implementation activities',
+          'Conduct architecture reviews and provide advisory services for new solutions and platforms',
+          'Define the technology roadmap of the targeted services in the backend and frontend clients',
+          'Developed the business capabilities, data, application, security and technology architectures (TOGAF)',
+          'Designed an Authentication and Authorization framework for various VW security domains',
+        ],
+        env: ['Automotive', 'Distributed systems', 'Cloud infrastructure', 'Vehicle', 'Mobile app', 'Web portal'],
+        tech: ['Enterprise Architect', 'Java', 'SpringBoot', 'REST', 'OpenAPI', 'Micro-services', 'Azure', 'AWS', 'Cloud-Foundry', 'MQTT', 'Kafka', 'EA Sparx'],
+        link: 'https://www.cariad.technology',
+        filter: 'Automotive'
+      },
+      {
+        domain: 'Autonomous Driving',
+        title: 'Autonomous Driving Lab',
+        role: 'Solution Architect & Technology Advisor',
+        period: 'Sep 2023 – Present',
+        org: 'QMIC',
+        desc: 'Establish business and technology goals for the internal autonomous driving project, evaluating open-source AD/ADAS solutions including Apollo and Autoware.',
+        tasks: [
+          'Establish the business and technology goals for the internal autonomous driving project',
+          'Outline the architecture of autonomous driving (AD), covering both hardware and software components',
+          'Evaluate a range of open-source AD and ADAS solutions, including Apollo and Autoware',
+          'Establish an innovation and research development lab with controlled testbed and living lab',
+          'Supervise the creation of cloud point and HD maps of specific test environments',
+          'Define the target architecture for enabling autonomous driving with local road operators',
+          'Assist sales efforts in responding to RFPs related to road infrastructure for AD and MaaS',
+        ],
+        env: ['Autonomous Driving', 'Mobility as a Service', 'Software-Defined Vehicle', 'Cloud infrastructure'],
+        tech: ['Architecture', 'C++', 'Python', 'Cloud'],
+        link: 'http://www.qmic.com/',
+        filter: 'Automotive'
+      },
+      {
+        domain: 'Smart Road / Infrastructure',
+        title: 'Smart Road Program',
+        role: 'Solution Architect & Technology Advisor',
+        period: 'Oct 2023 – Present',
+        org: 'QMIC · Client: Public Works Authority',
+        desc: 'Aims to improve road safety, traffic efficiency and enhance customer experience for the Public Works Authority (Ashghal) in Qatar.',
+        tasks: [
+          'Evaluate the current architecture of the road operator systems and road infrastructure assets',
+          'Establish the target high-level architecture integrating road assets, QMIC smart mobility platforms, and public road operator infrastructure',
+          'Identify the key initial technology enablers to be incorporated into the project',
+          'Develop a methodology based on the Scaled Agile Framework (SAFe)',
+          'Advocate for a cloud-first and AI-first strategy emphasizing data analytics, safety enforcement, and sustainability',
+          'Outline migration activities and plan for transitioning from on-premises to cloud infrastructure',
+        ],
+        env: ['Road operator', 'Mobility as a Service', 'Cloud infrastructure', 'Migration to cloud'],
+        tech: ['Architecture', 'Cloud', 'AI', 'Java', 'SpringBoot', 'Quarkus', 'React', 'Draw.io'],
+        link: 'http://www.qmic.com/',
+        filter: 'Smart City'
+      },
+      {
+        domain: 'Maritime',
+        title: 'Maritime Fleet Management Solution',
+        role: 'Solution Architect & Software Developer',
+        period: 'Oct 2024 – Present',
+        org: 'QMIC',
+        desc: 'End-to-end architecture for monitoring and managing an e-boat fleet, integrating Signal-K server with MQTT broker for telemetry data collection.',
+        tasks: [
+          'Designed the end-to-end architecture for monitoring and managing an e-boat fleet',
+          'Built a gateway to connect a Signal-K server with an MQTT broker, enabling telemetry data collection',
+          'Developed backend components for data processing and e-boat management',
+          'Created a web frontend to showcase monitoring and navigation capabilities',
+        ],
+        env: ['Embedded HW using Raspberry-Pi', 'Maritime', 'Backend'],
+        tech: ['Python', 'React', 'JavaScript', 'Java', 'MQTT'],
+        link: 'http://www.qmic.com/',
+        filter: 'IoT'
+      },
+      {
+        domain: 'eGovernment',
+        title: 'Single Window (investor.sw.gov.qa)',
+        role: 'Solution Architect',
+        period: 'Feb 2023 – May 2023',
+        org: 'QMIC · Client: MoCI',
+        desc: 'Architecture assessment and target solution design for the Single Window platform at the Ministry of Commerce & Industry.',
+        tasks: [
+          'Evaluated the baseline architecture of the SW project, emphasizing architecture domains and interdependencies',
+          'Examined the source code of both frontend and backend components (monolithic architecture)',
+          'Presented an independent perspective to underscore the architectural limitations',
+          'Suggested recommendations or solutions for each challenge identified',
+          'Outlined the target solution architecture to align with the project business objectives',
+        ],
+        env: ['E-Government at Ministry of Commerce & Industry', 'Distributed systems', 'Web client frontend and backend platform'],
+        tech: ['IBM backend technologies', 'Java', 'SpringBoot', 'REST', 'OpenAPI', 'Micro-services', 'Orbus Software'],
+        link: 'https://investor.sw.gov.qa',
+        filter: 'eGov'
+      },
+      {
+        domain: 'Enterprise Architecture',
+        title: 'Enterprise Architecture Management – Malomatia',
+        role: 'Enterprise Architect',
+        period: 'Jun 2022 – Apr 2023',
+        org: 'QMIC · Client: Malomatia',
+        desc: 'Full Enterprise Architecture Management initiative for Malomatia, establishing EA governance structures and architecture community.',
+        tasks: [
+          'Defined the purpose, scope and goal of the EAM initiative',
+          'Set up EA governance structures, roles, and decision-making frameworks including EA board and architecture community',
+          'Selected TOGAF as the architecture framework, ArchiMate for modelling and Orbus Software as EA tool',
+          'Captured the baseline architecture in a central repository for all architects',
+          'Established an architecture community to ensure collaboration and knowledge share',
+        ],
+        env: ['Enterprise architecture management', 'Architecture repository', 'Architecture board', 'Architecture community'],
+        tech: ['Enterprise architecture management', 'TOGAF', 'ArchiMate', 'Orbus Software', 'LeanIX'],
+        link: 'https://www.malomatia.com',
+        filter: 'Enterprise'
+      },
+      {
+        domain: 'eGovernment',
+        title: 'Al Nadeeb – Customs (ecustoms.gov.qa)',
+        role: 'Solution Architect',
+        period: 'Jan 2023 – Feb 2023',
+        org: 'QMIC · Client: General Authority of Customs',
+        desc: 'Architecture assessment for the Al Nadeeb project at General Authority of Customs with actionable improvement recommendations.',
+        tasks: [
+          'Evaluated the baseline architecture of the Al-Nadeeb project',
+          'Presented a broad overview from an independent perspective to underscore architectural limitations',
+          'Suggested recommendations or solutions for each challenge as input to the project backlog',
+        ],
+        env: ['E-Government at General Authority of Customs', 'Distributed systems', 'Web client frontend and backend platform'],
+        tech: ['Java', 'SpringBoot', 'React', 'REST', 'OpenAPI', 'Micro-services'],
+        link: 'https://www.ecustoms.gov.qa',
+        filter: 'eGov'
+      },
+      {
+        domain: 'Enterprise Architecture',
+        title: 'SAP Enterprise Architecture – Qatar Tax Authority',
+        role: 'Solution Architect & Technology Advisor',
+        period: 'Oct 2022 – Dec 2022',
+        org: 'QMIC · Client: Qatar Tax Authority',
+        desc: 'Building the enterprise architecture management system for Qatar Tax Authority, documenting SAP infrastructure and developing baseline architecture in TOGAF.',
+        tasks: [
+          'Collaborated with cross-functional teams across Business and IT to identify all SAP infrastructure components, applications, and interfaces',
+          'Established the Enterprise Architecture Management (EAM) repository using Orbus Software',
+          'Documented all SAP-related components, interfaces, and applications within the repository',
+          'Developed the baseline architecture in alignment with TOGAF methodology, utilizing the ArchiMate modelling language',
+          'Delivered a comprehensive presentation and handed over the architecture repository to the IT team',
+        ],
+        env: ['SAP mobile platform', 'SAP Fiori', 'SAP Gateway', 'S/4Hana'],
+        tech: ['SAP solutions', 'On-premise', 'Enterprise Architecture Management', 'TOGAF', 'ArchiMate', 'Orbus Software'],
+        link: null,
+        filter: 'Enterprise'
+      },
+      {
+        domain: 'eHealth',
+        title: 'gematik Connector/Gateway',
+        role: 'IoT Architect',
+        period: 'Oct 2019 – Dec 2019',
+        org: 'T-Systems International',
+        desc: 'Architectural design of the connector serving as a gateway between client system components and the gematik Telemetry Infrastructure (TI) backend.',
+        tasks: [
+          'Conducted a thorough review of the gematik Telemetry Infrastructure (TI) and its associated connector gateway',
+          'Contributed to the architectural design of the connector as a gateway to the gematik TI backend',
+          'Oversaw implementation, quality assurance, and deployment processes',
+        ],
+        env: ['eHealth backbone', 'IoT gateway'],
+        tech: ['C', 'C++', 'VPN', 'PKI', 'HTTP'],
+        link: null,
+        filter: 'eHealth'
+      },
+      {
+        domain: 'FinTech',
+        title: 'Implementation & Infrastructure Assessment',
+        role: 'Enterprise Architect',
+        period: 'Jan 2020 – Mar 2020',
+        org: 'T-Systems International',
+        desc: 'Assessment of infrastructure, technology platforms, and CI/CD pipelines for a digital banking platform and credit bureau.',
+        tasks: [
+          'Reviewed the infrastructure and technology platforms of a digital banking platform',
+          'Assessed the entire development, continuous integration and delivery pipeline of different development teams',
+          'Reviewed a digital platform assessment on the value chain and the configurability assessment',
+          'Deep-dive assessment of core product platforms of digital banking services and credit bureau',
+        ],
+        env: ['FinTech', 'Digital banking services'],
+        tech: ['Enterprise Architect', 'REST', 'Open Banking API', 'Micro-services', 'Cloud-Foundry', 'CI/CD'],
+        link: null,
+        filter: 'FinTech'
+      },
+      {
+        domain: 'IoT R&D',
+        title: 'OpenMTC – M2M/IoT Platform',
+        role: 'Business Development Manager',
+        period: 'Jan 2012 – Feb 2016',
+        org: 'Fraunhofer FOKUS',
+        desc: 'Open Machine-Type Communication platform supporting smart home, smart cities, healthcare, environmental monitoring, smart grids, and Industry 4.0.',
+        tasks: [
+          'Defined the platform short- and long-term strategy',
+          'Identified the target vertical domains and related applications to be supported',
+          'Defined the overall architecture of the platform and standards to be followed',
+          'Developed the OpenMTC application layer framework associated with targeted domains',
+          'Built collaboration and partnership framework with external partners',
+          'Presented the platform in different workshops, exhibitions and conferences',
+        ],
+        env: ['Smart city', 'Smart building', 'Interworking with different platforms'],
+        tech: ['OpenMTC', 'M2M/IoT', 'ELV', 'ZigBee', 'WiFi', 'Bluetooth', 'Semantic'],
+        link: null,
+        filter: 'IoT'
+      },
+      {
+        domain: 'Smart City / Mobility',
+        title: 'EMBERS – Mobility Back-End as a Service',
+        role: 'Project Manager & Technical Architect',
+        period: 'Dec 2015 – Feb 2016',
+        org: 'Fraunhofer FOKUS',
+        desc: 'Enabling a Mobility Back-End as a Service project featuring traffic situation monitoring, vehicle tracking and parking space availability.',
+        tasks: [
+          'Developed a mobility solution with features: traffic situation, vehicle tracking and parking space availability',
+          'Defined the end-to-end architecture enabling integration of various data sources and data streams',
+          'Extended the MBaaS with standardized open APIs such as OneM2M, ETSI M2M and OMA LW M2M',
+          'Rolled out the MBaaS platform to the market',
+          'Stimulated the Smart City mobility ecosystem in Europe through exposing EMBERS open APIs to developers',
+        ],
+        env: ['Smart city', 'M2M/IoT', 'Intelligent Transportation System', 'Mobility'],
+        tech: ['OpenMTC', 'OneM2M', 'ETSI M2M', 'OMA LW M2M'],
+        link: null,
+        filter: 'Smart City'
+      },
+      {
+        domain: 'Industrial Internet',
+        title: 'SmartOrchestra',
+        role: 'Project Manager & Technical Architect',
+        period: 'Dec 2015 – Feb 2016',
+        org: 'Fraunhofer FOKUS',
+        desc: 'An open platform for integrating various cyber physical systems, enabling stakeholders to combine, orchestrate, and promote smart services in an open market space.',
+        tasks: [
+          'Interacted with various stakeholders to collect service scenarios in building management and industrial Internet',
+          'Defined the required cyber physical system to be integrated',
+          'Defined interconnection mechanisms and related communication technologies, transport protocols, interfaces and data models',
+          'Developed an open platform to be integrated with various cyber physical systems',
+          'Enabled various stakeholders to be involved in the entire service delivery with flexible business offering',
+        ],
+        env: ['Industrial Internet', 'Connected Services', 'Interworking with different cyber physical systems'],
+        tech: ['OpenMTC', 'M2M/IoT', 'ELV', 'ZigBee', 'WiFi', 'Bluetooth', 'Semantic'],
+        link: null,
+        filter: 'IoT'
+      },
+      {
+        domain: 'Smart City',
+        title: 'FIESTA – Federated IoT Smart City',
+        role: 'Manager',
+        period: 'Feb 2015 – Feb 2016',
+        org: 'Fraunhofer FOKUS',
+        desc: 'Integrated architecture for Federated Interoperable Semantic IoT/cloud Testbeds and Applications across European smart city infrastructures.',
+        tasks: [
+          'Defined use cases covering various data sources from different smart city infrastructures distributed in Europe',
+          'Defined the federated layer/interfaces and data model based on semantic interoperability',
+          'Managed the development and deployment of Fraunhofer FOKUS smart building testbed',
+        ],
+        env: ['Smart city', 'Smart building', 'Federated cloud'],
+        tech: ['OpenMTC', 'ELV', 'Semantic IoT applications'],
+        link: null,
+        filter: 'Smart City'
+      },
+      {
+        domain: 'eHealth / IoT',
+        title: 'FI-STAR – Future Internet Healthcare',
+        role: 'Manager',
+        period: 'Apr 2013 – Sep 2015',
+        org: 'Fraunhofer FOKUS',
+        desc: 'Early trials in the HealthCare domain building on Future Internet (FI) technology leveraging on the outcomes of FI-PPP FIWARE project.',
+        tasks: [
+          'Contributed to requirements engineering by defining project use cases for monitoring and digitalization in healthcare',
+          'Mapped functionalities to existing FIWARE generic enablers or next specific enablers',
+          'Defined the project architecture covering the front-end and backend infrastructure',
+          'Managed the entire project implementation activities carried out by more than 18 partners',
+        ],
+        env: ['HealthCare', 'Hospitals', 'Rehabilitation clinic', 'Pharma industry'],
+        tech: ['OpenMTC', 'FIWARE', 'OMA NGSI-9/10', 'Cloud'],
+        link: 'https://cordis.europa.eu/project/id/604691',
+        filter: 'eHealth'
+      },
+      {
+        domain: 'Telecom R&D',
+        title: 'NGN Testbed – QMIC',
+        role: 'Manager',
+        period: 'March 2011 – Oct 2012',
+        org: 'Qatar Mobility Innovations Center',
+        desc: 'Establishment of an open services testbed based on NGN/IMS, enabling application developers to access service enablers through open programming interfaces.',
+        tasks: [
+          'Defined project objectives, goals and identified project partners',
+          'Created the project proposal and defined the required budget',
+          'Managed project deployment and installation',
+          'Led applications development based on real-time communication capabilities',
+          'Launched the testbed for community developers',
+        ],
+        env: ['NGN/IMS-based service enablers', 'Policy-based service brokers', 'Service broker'],
+        tech: ['NGN/IMS core', 'Presence server', 'XDMS', 'Call control', 'SIP', 'OMA NGSI', 'Parlayx', 'RESTfull'],
+        link: null,
+        filter: 'Telecom'
+      },
+      {
+        domain: 'Telecom',
+        title: 'STC NGN Consultancy',
+        role: 'Consultant',
+        period: 'May 2008 – Sep 2010',
+        org: 'Saudi Telecommunication Company',
+        desc: 'Consultancy services on different NGN projects including PSTN migration, core network strategic planning, and IMS RFP definition.',
+        tasks: [
+          'Defined PSTN migration from PSTN to softswitch-based NGN infrastructure',
+          'Contributed to STC core network strategic plan',
+          'Specified high and low level design of the NGN',
+          'Managed PSTN migration activities to NGN',
+          'Defined high level design of an IP-based interworking solution between NGN, PSTN, international gateways and mobile networks',
+          'Contributed the deployment strategy of a converged IMS network',
+        ],
+        env: ['Fixed and mobile network', 'Switching core', 'NGN', 'PSTN', 'GSM', 'UMTS', 'LTE'],
+        tech: ['IMS core', 'Softswitch', 'IPTV', 'FTTH', 'VAS', 'IP-centrecx'],
+        link: 'https://www.stc.com',
+        filter: 'Telecom'
+      },
+    ];
+
+    // ── RENDER PROJECTS ──
+    const grid = document.getElementById('projects-grid');
+    let currentFilter = 'all';
+
+    function renderProjects(filter) {
+      grid.innerHTML = '';
+      const filtered = filter === 'all' ? projects : projects.filter(p => p.filter === filter);
+      filtered.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.dataset.delay = (i % 4) * 100;
+        card.innerHTML = `
       <div class="project-domain">${p.domain}</div>
       <div class="project-title">${p.title}</div>
       <div class="project-role">${p.role} · ${p.org}</div>
       <div class="project-desc">${p.desc}</div>
       <div class="project-footer">
         <div class="project-period">${p.period}</div>
-        <div class="project-tech-list">${p.tech.slice(0,3).map(t => `<span class="project-tech">${t}</span>`).join('')}</div>
+        <div class="project-tech-list">${p.tech.slice(0, 3).map(t => `<span class="project-tech">${t}</span>`).join('')}</div>
       </div>`;
-    card.addEventListener('click', () => openModal(p));
-    grid.appendChild(card);
-    setTimeout(() => observer.observe(card), 50);
-  });
-}
+        card.addEventListener('click', () => openModal(p));
+        grid.appendChild(card);
+        setTimeout(() => observer.observe(card), 50);
+      });
+    }
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    renderProjects(currentFilter);
-  });
-});
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderProjects(currentFilter);
+      });
+    });
 
-renderProjects('all');
+    renderProjects('all');
 
-// ── MODAL ──
-const overlay = document.getElementById('modal-overlay');
-const modalBody = document.getElementById('modal-body');
-document.getElementById('modal-close').addEventListener('click', closeModal);
-overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    // ── MODAL ──
+    const overlay = document.getElementById('modal-overlay');
+    const modalBody = document.getElementById('modal-body');
+    const modalCloseBtn = document.getElementById('modal-close');
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-function openModal(p) {
-  modalBody.innerHTML = `
+    function openModal(p) {
+      if (!modalBody || !overlay) return;
+      modalBody.innerHTML = `
     <div class="modal-domain">${p.domain}</div>
     <div class="modal-title">${p.title}</div>
     <div class="modal-meta">
@@ -1626,13 +3055,43 @@ function openModal(p) {
     <div class="modal-tech-tags">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
     ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener" class="modal-link">↗ Visit Project / Organization</a>` : ''}
   `;
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-</script>
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ── WORKSHOP TYPE FILTER ──
+    document.querySelectorAll('.ws-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ws-filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const type = btn.dataset.wtype;
+        document.querySelectorAll('.workshop-item').forEach(item => {
+          item.style.display = (type === 'all' || item.dataset.wtype === type) ? 'grid' : 'none';
+        });
+      });
+    });
+
+    // ── SCROLL REVEAL for workshop & pub items ──
+    const pubObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'none';
+          }, (i % 8) * 60);
+          pubObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.04 });
+
+    document.querySelectorAll('.workshop-item, .pub-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.45s, transform 0.45s';
+      pubObserver.observe(el);
+    });
+
+  </script>
 </body>
+
 </html>
